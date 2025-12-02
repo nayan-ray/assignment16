@@ -121,6 +121,13 @@ const resendVerification = (req, res)=>{
     })
 }
 
+const uploadProfilePicture = (req, res)=>{
+    res.status(200).json({
+        success:true,
+        message : "Profile picture uploaded successfully"
+    })
+}
+
 const deleteAccount = (req, res)=>{
     res.status(200).json({
         success:true,
@@ -129,5 +136,5 @@ const deleteAccount = (req, res)=>{
 }
 
 
-export default {createUser,readUser, updateUser, deleteUser, getAllUsers, getUserById, loginUser, logoutUser, changePassword, updateProfile, makeAdmin, removeAdmin, searchUsers, filterUsers, blockUser, unblockUser, verifyEmail, resendVerification, deleteAccount
+export default {createUser,readUser, updateUser, deleteUser, getAllUsers, getUserById, loginUser, logoutUser, changePassword, updateProfile, makeAdmin, removeAdmin, searchUsers, filterUsers, blockUser, unblockUser, verifyEmail, resendVerification, deleteAccount, uploadProfilePicture
 };
