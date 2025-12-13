@@ -24,6 +24,17 @@ const studentSchema = new mongoose.Schema({
     image : {type : String, default : ""},
     ban : { type: Boolean, default: false  },
     admin : { type: Boolean, default: false  },
+    address : { type: String, default : "" },
+    phone : {
+        type: String,
+        validate : {
+            validator : (v)=>{
+                return /^(?:\+880|880|0)1[3-9]\d{8}$/.test(v)
+            },
+            message : props => `${props.value} is not a valid phone number`
+        },
+        required : [true, "Phone number is required"]
+    }
 
 },
 {timestamps : true, versionKey : false}
