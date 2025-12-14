@@ -2,6 +2,8 @@ import Student from "../models/student.js";
 import bcrypt from "bcryptjs";
 import createError from "http-errors";
 import { login_secret_key } from "../../secret.js";
+import { createToken } from "../helper/createToken.js";
+import { successResponse } from "../helper/response.js";
 
 const handleLogin =  async(req, res, next)=>{
     try {
@@ -10,7 +12,7 @@ const handleLogin =  async(req, res, next)=>{
         const { email, password } = req.body;
         //find user  by email
 
-        const user = await Student.findOne({ email });
+        const user = await Student.findOne({ email }, {isBanned: 0, });
         //if user is not found send error response
 
         if (!user) {
@@ -19,7 +21,7 @@ const handleLogin =  async(req, res, next)=>{
         }
 
         //compare password
-
+       
         const isMatch = await bcrypt.compare(password, user.password);
 
         //check match 
@@ -34,9 +36,9 @@ const handleLogin =  async(req, res, next)=>{
         if(user.isBanned){
             throw  createError(401, "Your account is banned.  Please contact admin");
         }
-        
+        const student = {name : user.name, email : user.email, id : user._id};
         // create  token
-        const accessToken = createToken({user : user}, login_secret_key, "10m" ) 
+        const accessToken = createToken({student}, login_secret_key, "10m" ) 
           
         //set token in cookie
         res.cookie("access_token", accessToken, {
@@ -49,9 +51,7 @@ const handleLogin =  async(req, res, next)=>{
         return successResponse(res,{
             statusCode  : 200,
             message  : 'user login successfully',
-            payload : {
-                      
-            }
+            
         })
         
     } catch (error) {

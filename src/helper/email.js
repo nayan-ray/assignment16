@@ -14,7 +14,7 @@ const transporter = nodemailer.createTransport({
 
 const emailWithNodeMailer = async (emailData)=>{
    
-    console.log(emailData);
+   
     
     
     try {

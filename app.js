@@ -1,5 +1,6 @@
 import express from 'express';
 import createError from 'http-errors';
+import cookieParser from 'cookie-parser';
 
 import { errorResponse } from './src/helper/response.js';
 import studentRouter from './src/routes/studentRoute.js';
@@ -8,6 +9,7 @@ import studentAuthRouter from './src/routes/authRoute.js';
 const app = express();
 
 app.use(express.json());
+app.use(cookieParser());
 
 app.use("/api/v1/student", studentRouter);
 app.use("/api/v1/auth", studentAuthRouter);

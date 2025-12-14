@@ -6,6 +6,7 @@ import Student from "../models/student.js";
 import { secretKey } from "../../secret.js";
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
+import { findUserById } from "../helper/commonService.js";
 
 const userRegister= async(req, res,next) => {
     try {
@@ -147,4 +148,41 @@ const activeUserProcess= async(req, res, next) => {
     
 }
 
-export {userRegister, activeUserProcess};
+
+const getUserById = async(req, res,next) => {
+    try {
+        //take  id from params
+       
+       
+        
+        
+
+        const  id = req.params.id;
+     
+
+        //options  to exclude password from response
+
+        const options = {password : 0, admin : 0, isBanned : 0};
+
+        //retrieve  user by id
+
+
+        const user = await findUserById(id, Student, options);
+
+         //send  response with user details
+
+
+        return successResponse(res,{
+            statusCode  : 200,
+            message  : 'user retrieved successfully',
+            payload : user
+        })
+       
+
+    } catch (error) {
+        
+        next(error)
+    }
+}
+
+export {userRegister, activeUserProcess, getUserById};
