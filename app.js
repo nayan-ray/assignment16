@@ -1,6 +1,9 @@
 import express from 'express';
 import createError from 'http-errors';
 import cookieParser from 'cookie-parser';
+import morgan from 'morgan';
+import path from 'path';
+import { fileURLToPath } from "url";
 
 import { errorResponse } from './src/helper/response.js';
 import studentRouter from './src/routes/studentRoute.js';
@@ -8,8 +11,21 @@ import studentAuthRouter from './src/routes/authRoute.js';
 
 const app = express();
 
+//__dirname fix for ES module
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(morgan('dev'));
+
+//for serving static files
+
+//   requested_file_path = static_folder_path + (URL - URL_prefix)
+  
+
+app.use('/uploads', express.static(path.join(__dirname, "uploads")));
 
 app.use("/api/v1/student", studentRouter);
 app.use("/api/v1/auth", studentAuthRouter);

@@ -26,9 +26,12 @@ const isLoggedIn = async(req, res,  next) => {
             throw createError(401, 'Unauthorized, please login first');
         }
        
-        //set user in req object
-
-        req.body.student  = decoded.student;
+        //Not modifying req.body directly to avoid potential issues
+        //You create a new object, not mutate req.body
+        // req.body.student  = decoded.student;
+        req.student  = decoded.student;
+       
+        
         // next middleware
         next();
     } catch (error) {

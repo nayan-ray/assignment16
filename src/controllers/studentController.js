@@ -7,6 +7,7 @@ import { secretKey } from "../../secret.js";
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
 import { findUserById } from "../helper/commonService.js";
+import { deleteImageByPath } from "../helper/deleteImagePath.js";
 
 const userRegister= async(req, res,next) => {
     try {
@@ -185,4 +186,123 @@ const getUserById = async(req, res,next) => {
     }
 }
 
-export {userRegister, activeUserProcess, getUserById};
+const deleteUserById= async(req, res, next) => {
+    try {
+        //take  id from params
+
+        const  id = req.params.id;
+
+        //check  if user exists
+
+
+        const user = await findUserById(id,  Student);
+      
+        //check image  exists
+
+        // const userImagePath = user.image;
+        // delete  user image from server
+
+        // await  deleteImageByPath(userImagePath);
+
+        // delete  user from database
+
+        await Student.findByIdAndDelete({_id : id, isAdmin  : false});
+
+        // send  response with success message
+
+        return successResponse(res,{
+            statusCode  : 200,
+            message  : 'user deleted successfully',
+            
+        })
+
+    } catch (error) {
+        
+        // send  error response with error message
+
+        next(error)
+    }
+}
+
+const updateUser = async(req, res,next) => {
+    try {
+       //accept id
+     
+        const  id = req.params.id;
+
+      //check user with this id
+
+        const user = await findUserById(id, Student);
+
+      //update options
+
+       const  updateOptions = {new : true}
+      
+      //create update object
+
+       let  updateObject = {};
+
+       if(req.body.name){
+          updateObject.name = req.body.name;
+       }
+       if(req.body.email){
+          throw  createHttpError(400, 'you can not  update email');
+       }
+
+       if(req.body.password){
+          updateObject.password = req.body.password;
+       }
+       if(req.body.phone){
+          updateObject.phone = req.body.phone;
+        }
+
+        if(req.body.address){
+          updateObject.address = req.body.address;
+        }
+
+        const image  = req.file;
+        console.log(image);
+       
+       if(image){
+         
+          updateObject.image = image.filename;
+        //   user.image && deleteImageByPath(user.image);
+        }
+      
+        try {
+            if(!updateObject){
+                throw createHttpError(400, 'no updated object')
+            }
+        } catch (error) {
+            throw error;
+        }
+     
+
+      
+       
+        const  userUpdated = await Student.findByIdAndUpdate(id,  updateObject, updateOptions);
+           
+       //checked  if user is updated
+
+       if(!userUpdated){
+
+          throw createHttpError(404, 'Some thing went wrong');
+
+       }
+    
+
+        return successResponse(res,{
+            statusCode  : 200,
+            message  : 'user retrieved successfully',
+            payload : {
+                url : `${req.protocol}://${req.get("host")}/uploads/studentImages/${userUpdated.image}`
+            }
+        })
+
+    } catch (error) {
+        
+        next(error)
+    }
+}
+
+export {userRegister, activeUserProcess, getUserById, deleteUserById, updateUser}; ;
