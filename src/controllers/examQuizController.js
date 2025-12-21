@@ -191,5 +191,22 @@ const deleteExamQuiz = async (req, res, next) => {
     }
 }
 
+const getQuizByUnitId = async (req, res, next)=>{
+    const id = req.params.id;
 
-export { createExamQuiz, deleteExamQuiz, updateExamQuiz };
+    try {
+        const quizzes = await ExamQuiz.find({unitId : id});
+
+         return successResponse(res,{
+            statusCode  : 200,
+            message  : 'Quiz deleted successfully',
+            payload : quizzes
+        })
+        
+    } catch (error) {
+        next(error)
+    }
+
+}
+
+export { createExamQuiz, deleteExamQuiz, updateExamQuiz , getQuizByUnitId};

@@ -182,4 +182,19 @@ const deleteModelQues = async (req, res, next) => {
     }
 }
 
-export { createModelQues, updateModelQues, deleteModelQues };
+const getQuesByUnitId = async(req, res, next) => {
+    const id = req.params.id;
+    try {
+        const modelQues = await ModelQues.find({ unitId: id });
+
+        return successResponse(res, {
+            statusCode: 200,
+            message: 'Model Questions retrieved successfully',
+            payload: modelQues
+        });
+    } catch (error) {
+        next(error);
+    }
+}
+
+export { createModelQues, updateModelQues, deleteModelQues, getQuesByUnitId };

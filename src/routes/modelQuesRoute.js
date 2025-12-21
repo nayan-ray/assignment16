@@ -1,7 +1,7 @@
 import express from "express";
 
 import modelQuesUpload from "../middleware/noteFileUpload.js";
-import { createModelQues, deleteModelQues, updateModelQues } from "../controllers/modelQuesController.js";
+import { createModelQues, deleteModelQues, getQuesByUnitId, updateModelQues } from "../controllers/modelQuesController.js";
 
 
 
@@ -12,6 +12,7 @@ router.post("/add-ques", modelQuesUpload.fields([{ name: "quesTitleImg", maxCoun
 
 router.put("/update-ques/:id", modelQuesUpload.fields([{ name: "quesTitleImg", maxCount: 1 }, { name: "ansAImg", maxCount: 1 }, {name : "ansBImg", maxCount : 1}, {name : "ansCImg", maxCount : 1} ]), updateModelQues);
 router.delete("/delete-ques/:id", deleteModelQues);
+router.get("/get-ques-by-unit/:id", getQuesByUnitId);
 
 
 export default router;

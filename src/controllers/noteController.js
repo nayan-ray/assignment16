@@ -143,4 +143,20 @@ const deleteNote = async (req, res, next) => {
     }
 }
 
-export { createNote , editNote, deleteNote};
+const getNotesByUnitId = async (req, res, next) => {
+    const id = req.params.id;
+    try {
+
+        const notes = await Note.find({ unitId: id });
+
+        return successResponse(res, {
+            statusCode: 200,
+            message: 'Notes retrieved successfully',
+            payload: notes
+        });
+    } catch (error) {
+        next(error);
+    }
+}
+
+export { createNote , editNote, deleteNote, getNotesByUnitId};
