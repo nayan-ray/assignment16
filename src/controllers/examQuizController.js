@@ -1,8 +1,11 @@
+import mongoose from "mongoose";
 import { UPLOAD_DIR } from "../config/path.js";
 import { findUserById } from "../helper/commonService.js";
 import { deleteImageByPath } from "../helper/deleteImagePath.js";
 import { successResponse } from "../helper/response.js";
 import ExamQuiz from "../models/examQuiz.js";
+import Result from "../models/studentResult.js";
+import Unit from "../models/unit.js"
 import path from "path";
 
 
@@ -209,4 +212,100 @@ const getQuizByUnitId = async (req, res, next)=>{
 
 }
 
-export { createExamQuiz, deleteExamQuiz, updateExamQuiz , getQuizByUnitId};
+const submitQuizByUnit = async (req, res, next)=>{
+     const studentId = req.student.id;
+     const answerList = req.body.anserList;
+     const unitId = req.body.unitId;
+    
+     let resultObj = {studentId, unitId};
+     const total = req.body.anserList.length;
+     let correct = 0;
+  
+    try {
+        const [unit] = await Unit.aggregate([
+            {$match : {_id : new mongoose.Types.ObjectId(unitId)}},
+            {$lookup : {
+                from : "subjects",
+                localField : "subjId" ,
+                foreignField : "_id",
+                as : "subject"
+            }},
+            {$unwind : "$subject"},
+              {$lookup : {
+                from : "classes",
+                localField : "classId" ,
+                foreignField : "_id",
+                as : "class"
+            }},
+            {$unwind : "$class"},
+
+        ])
+
+        if(unit.subject){
+            resultObj.subjName = unit.subject.subjName;
+        }
+        if(unit.class){
+            resultObj.className = unit.class.className;
+        }
+
+       
+
+        for(const item of answerList){
+            const quiz = await ExamQuiz.findOne({_id : item.quizId});
+            if( quiz && quiz.quizAnsIn === item.quizAnsIn){
+                correct = correct + 1;
+            }
+        }
+
+        if(correct){
+            resultObj.correct = correct;
+            resultObj.total = total;
+        }
+      
+
+        const result=   await Result.findOneAndUpdate(
+            {unitId, studentId},
+            {$set :{correct, updatedAt: new Date()}, 
+             $setOnInsert : {
+               unitId,
+               studentId,
+               subjName : resultObj.subjName,
+               className : resultObj.className,
+               total,
+               createdAt: new Date()
+            }},
+            
+            {
+               upsert: true,
+               new: true
+            }
+        );
+
+         return successResponse(res,{
+            statusCode  : 200,
+            message  : 'result submit successfully',
+            payload : result
+        })
+       
+    } catch (error) {
+        next(error)
+    }
+    
+
+}
+
+const getResultByUnitAndUser = async (req, res, next)=>{
+    const unitId = req.params.id;
+    const studentId = req.student.id;
+    try {
+        const result = await Result.findOne({unitId, studentId}, {correct : 1, total : 1});
+         return successResponse(res,{
+            statusCode  : 200,
+            message  : 'result submit successfully',
+            payload : result
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+export { createExamQuiz, deleteExamQuiz, updateExamQuiz , getQuizByUnitId, submitQuizByUnit};

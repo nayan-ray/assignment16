@@ -38,7 +38,7 @@ const handleLogin =  async(req, res, next)=>{
         }
         const student = {name : user.name, email : user.email, id : user._id};
         // create  token
-        const accessToken = createToken({student}, login_secret_key, "10m" ) 
+        const accessToken = createToken(student, login_secret_key, "10m" ) 
           
         //set token in cookie
         res.cookie("access_token", accessToken, {

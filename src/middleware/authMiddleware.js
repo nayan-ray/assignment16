@@ -29,7 +29,7 @@ const isLoggedIn = async(req, res,  next) => {
         //Not modifying req.body directly to avoid potential issues
         //You create a new object, not mutate req.body
         // req.body.student  = decoded.student;
-        req.student  = decoded.student;
+        req.student  = decoded;
        
         
         // next middleware
