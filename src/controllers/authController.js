@@ -80,5 +80,4 @@ const handleLogout =  async(req, res, next)=>{
   
 }
 
-
 export {handleLogin, handleLogout}

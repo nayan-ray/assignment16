@@ -304,4 +304,89 @@ const updateUser = async(req, res,next) => {
     }
 }
 
-export {userRegister, activeUserProcess, getUserById, deleteUserById, updateUser}; ;
+const checkEmail = async (req, res, next)=>{
+    const {email} = req.body;
+    try {
+        const student = await Student.findOne({email});
+        if(!student){
+            throw createHttpError(404,"User not found with the email");
+        }
+
+        const data = {
+            email: student.email
+        }
+
+        const token = createToken(data, secretKey, "5m");
+
+        
+                 const emailData = {
+                    email: student.email,
+                    subject : 'Password reset Email',
+                    text: '',
+                    html : `
+                         <h2> Hello ${student.name} </h2>
+                       <p>You want to reset password?</p>
+                     
+                      <p>Please click here to
+                         <a href='http://localhost:3000/api/user/reset-password/${token}'>
+                          reset your password
+                        </a>
+                       </p>
+                    `
+               }
+
+               
+         try {
+            await emailWithNodeMailer(emailData);
+         } catch (error) {
+             throw error;
+         }
+
+         return successResponse(res,{
+            statusCode  : 200,
+            message  : 'reset password email checked successfully',
+            payload :{
+                token
+            }
+        })
+
+    } catch (error) {
+        next(error)
+    }
+
+}
+
+const resetPassword = async (req, res, next)=>{
+    const {token, newPassword} =req.body;
+   
+
+    try {
+        const decoded = jwt.verify(token, secretKey);
+        if(!decoded){
+            throw createHttpError(401, "something went wrong")
+        }
+     
+        const student = await Student.exists({email : decoded.email});
+        if(!student){
+            throw createHttpError(404, "student not found with the email");
+        }
+        const updatedData = {
+            password : newPassword
+        }
+
+        await Student.findOneAndUpdate({email : decoded.email}, updatedData, {new : true} )
+
+         return successResponse(res,{
+            statusCode  : 200,
+            message  : 'Password updated successfully',
+           
+        })
+        
+    } catch (error) {
+        next(error)
+    }
+
+}
+
+
+export {userRegister, activeUserProcess, getUserById, deleteUserById, updateUser, checkEmail, resetPassword}; ;
