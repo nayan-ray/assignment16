@@ -19,8 +19,7 @@ function App() {
 
   return (
     <>
-    <Container>
-      <p className="text-primary bg-black">hello</p>
+    
       <Routes>
          <Route path='/' element={<Home />}/>
          <Route path='/dashboard' element={<Dashboard />}/>
@@ -36,9 +35,7 @@ function App() {
          <Route path='/active-account' element={<ActiveAccount />}/>
          <Route path='*' element={<NoPageFound />}/>
       </Routes>
-    </Container>
-      
-     
+        
     </>
   )
 }
