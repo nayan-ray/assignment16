@@ -1,9 +1,39 @@
 .common-wrapper{
     max-width: 1150px;
-    margin: 0 auto;
+    margin: 0 auto 40px;
     position: relative;
     padding:0 5%;
     display: flex;
     flex-direction: column;
     gap: 20px;
+}
+.numbering-gap{
+    display: flex;
+    gap: 15px;
+}
+.number-text{
+    width: 30px;
+    font-weight: 700;
+}
+.body-content{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.body-justify{
+    text-align: justify;
+}
+.list-container{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.answer-text{
+    cursor: pointer;
+    
+}
+.answer-text:hover{
+    background-color: lightgray;
 }
