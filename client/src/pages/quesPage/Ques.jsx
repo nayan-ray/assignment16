@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, {  } from 'react'
 import "./ques.css"
 import "../../assets/global.css"
 import Header from '../../components/header/Header'
@@ -6,7 +6,20 @@ import BreadCrumb from '../../components/breadCrumb/BreadCrumb'
 import Footer from '../../components/footer/Footer'
 
 const Ques = () => {
-  const [isAnswerVisible, setIsAnswerVisible] = useState(false);
+
+   const openBox =(e)=>{
+       const targetBox = e.target.nextElementSibling;
+
+       const isChecked = targetBox.classList.contains("d-none");
+       if(isChecked){
+          targetBox.classList.remove("d-none");
+          e.target.textContent = "Hide Answer";
+       }else{
+          targetBox.classList.add("d-none");
+          e.target.textContent = "Show Answer";
+       } 
+   }
+
   return (
     <div className="common-wrapper">
          <Header />
@@ -22,14 +35,14 @@ const Ques = () => {
                      <p className='body-justify'>B) What is the purpose of this question</p>
                       <p className='body-justify'>C) What is the purpose of this question</p>
                       <div className='body-content'>
-                         <div className="answer-text text-center" onClick={() => setIsAnswerVisible(!isAnswerVisible)}>{isAnswerVisible ? "Hide Answer" : "Show Answer"}</div>
-                        {isAnswerVisible && (
-                           <div className="answer-body">
+                         <div className="answer-text text-center" onClick={(e) => openBox(e)}>Show Answer</div>
+                       
+                           <div className="answer-body d-none">
                             <p className='body-justify'>Answer A : The purpose of this question is to test your understanding of the topic. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem.</p>
                             <p className='body-justify'>Answer B : The purpose of this question is to test your understanding of the topic. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem.</p>
                             <p className='body-justify'>Answer C : The purpose of this question is to test your understanding of the topic. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem.</p>
-                         </div>
-                        )}
+                          </div>
+                       
                       </div>
                  </div>
                
@@ -43,14 +56,14 @@ const Ques = () => {
                      <p className='body-justify'>B) What is the purpose of this question</p>
                       <p className='body-justify'>C) What is the purpose of this question</p>
                       <div className='body-content'>
-                         <div className="answer-text text-center" onClick={() => setIsAnswerVisible(!isAnswerVisible)}>{isAnswerVisible ? "Hide Answer" : "Show Answer"}</div>
-                        {isAnswerVisible && (
-                           <div className="answer-body">
+                         <div className="answer-text text-center" onClick={(e) => openBox(e)}>Show Answer</div>
+                       
+                           <div className="answer-body d-none">
                             <p className='body-justify'>Answer A : The purpose of this question is to test your understanding of the topic. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem.</p>
                             <p className='body-justify'>Answer B : The purpose of this question is to test your understanding of the topic. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem.</p>
                             <p className='body-justify'>Answer C : The purpose of this question is to test your understanding of the topic. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem.</p>
-                         </div>
-                        )}
+                          </div>
+                       
                       </div>
                  </div>
                
