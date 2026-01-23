@@ -37,3 +37,24 @@
 .answer-text:hover{
     background-color: lightgray;
 }
+.box {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: 
+    max-height 1s ease,
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+.box.open {
+  max-height: 2000px;
+  opacity: 1;
+  transform: translateY(0);
+}
+.answer-body {
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+}
+
