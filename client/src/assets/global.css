@@ -58,3 +58,22 @@
   transition: max-height 0.5s ease;
 }
 
+.option-box{
+    display: flex;
+    flex-direction: column;
+    
+    gap: 16px;
+}
+.option-item{
+    border: none;
+    outline: none;
+    padding: 8px 16px;
+    text-align: left;
+}
+/* .option-item:hover{
+    background-color: lightgray;
+} */
+
+.tick{
+    background-color: gray;
+}
