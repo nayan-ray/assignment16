@@ -42,7 +42,7 @@ const Accordion = ({ items, allowMultiple = false }) => {
             
             {/* Header */}
             <button
-              className={`accordion-header text-center ${isOpen ? "active" : ""}`}
+              className={`accordion-header  ${isOpen ? "active" : ""}`}
               onClick={() => toggle(index)}
               aria-expanded={isOpen}
             >
