@@ -14,6 +14,8 @@ import SignUp from "./pages/signUpPage/SignUp"
 import ActiveAccount from "./pages/activeAccountPage/ActiveAccount"
 import NoPageFound from './pages/noPage/NoPageFound';
 import Profile from './pages/profilePage/Profile';
+import TakeEmail from './pages/takeEmailPage/TakeEmail';
+import ResetPassword from './pages/ResetPasswordPage/ResetPassword';
 
 
 function App() {
@@ -32,6 +34,8 @@ function App() {
          <Route path='/dashboard/:subjName/:unitName/quiz' element={<Quiz />}/>
          <Route path='/dashboard/:subjName/:unitName/exam' element={<ExamQuiz />}/>
          <Route path='/profile' element={<Profile />}/>
+         <Route path='/check-email' element={<TakeEmail />}/>
+         <Route path='/reset-password/:token' element={<ResetPassword />}/>
          <Route path='/result' element={<Result />}/>
          <Route path='/login' element={<Login />}/>
          <Route path='/register' element={<SignUp />}/>

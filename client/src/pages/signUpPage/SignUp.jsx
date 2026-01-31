@@ -18,13 +18,13 @@ const SignUp = () => {
                 <label htmlFor="user-email">
                    email : 
                 </label>
-                <input type="text" id='user-email' placeholder='Enter your email' required />
+                <input type="email" id='user-email' placeholder='Enter your email' required />
             </div>
             <div className="form-group">
                 <label htmlFor="user-password">
                    password : 
                 </label>
-                <input type="text" id='user-password' placeholder='Enter your password' required />
+                <input type="password" id='user-password' placeholder='Enter your password' required />
             </div>
             <div className="form-group">
                 <label htmlFor="user-address">

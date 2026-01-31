@@ -77,3 +77,9 @@
 .tick{
     background-color: gray;
 }
+
+.take-email-container{
+    background-color: rebeccapurple;
+    height: calc(100vh - 75px);
+    overflow: hidden;
+}
