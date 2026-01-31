@@ -13,6 +13,7 @@ import Login from "./pages/loginPage/Login"
 import SignUp from "./pages/signUpPage/SignUp"
 import ActiveAccount from "./pages/activeAccountPage/ActiveAccount"
 import NoPageFound from './pages/noPage/NoPageFound';
+import Profile from './pages/profilePage/Profile';
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
          <Route path='/dashboard/:subjName/:unitName/question' element={<Ques />}/>
          <Route path='/dashboard/:subjName/:unitName/quiz' element={<Quiz />}/>
          <Route path='/dashboard/:subjName/:unitName/exam' element={<ExamQuiz />}/>
+         <Route path='/profile' element={<Profile />}/>
          <Route path='/result' element={<Result />}/>
          <Route path='/login' element={<Login />}/>
          <Route path='/register' element={<SignUp />}/>
