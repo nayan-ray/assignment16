@@ -39,7 +39,7 @@ function App() {
          <Route path='/result' element={<Result />}/>
          <Route path='/login' element={<Login />}/>
          <Route path='/register' element={<SignUp />}/>
-         <Route path='/active-account' element={<ActiveAccount />}/>
+         <Route path='/active-account/:token' element={<ActiveAccount />}/>
          <Route path='*' element={<NoPageFound />}/>
       </Routes>
         
