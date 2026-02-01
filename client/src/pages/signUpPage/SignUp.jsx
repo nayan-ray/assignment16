@@ -1,8 +1,13 @@
 import React from 'react'
 import "./signUp.css"
 import { Link } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import { setStudent } from '../../features/signUp/signUpSlice'
 
 const SignUp = () => {
+     const student = useSelector((state) => state.signup.student)
+     const dispatch = useDispatch();
+     console.log("student data from redux store:", student);
   return (
     <div className='sign-up-container'>
        <div className="sign-up-wrapper">
@@ -12,7 +17,7 @@ const SignUp = () => {
                 <label htmlFor="user-name">
                    Student Name : 
                 </label>
-                <input type="text" id='user-name' placeholder='Enter your name' required />
+                <input type="text"  value={student?.name || ''} placeholder='Enter your name' required onChange={(e) => dispatch(setStudent({field: "name", value: e.target.value}))}/>
             </div>
             <div className="form-group">
                 <label htmlFor="user-email">
