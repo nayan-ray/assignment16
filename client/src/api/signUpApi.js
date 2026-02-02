@@ -1,8 +1,10 @@
 import axios from "axios"
-
+import {store} from "../app/store"
+import { hideLoader, showLoader } from "../features/loader/loaderSlice"
 export const authApi = async(student)=>{
     try {
-        const response = await axios.post('http://localhost:3000/api/v1/student/register', student, {
+        store.dispatch(showLoader())
+         await axios.post('http://localhost:3000/api/v1/student/register', student, {
             headers : {
                 'Content-Type': 'application/json'
            },
@@ -17,6 +19,8 @@ export const authApi = async(student)=>{
         }
         alert("Registration failed. Please try again." )
            
+    }finally{
+        store.dispatch(hideLoader())
     }
    
 }
