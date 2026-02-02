@@ -8,7 +8,7 @@ export const authApi = async(student)=>{
            },
             withCredentials : true
         })
-        console.log("success", response.data);
+        alert("Student's info taken successfully. Please check your email to activate your account.")
         
     } catch (error) {
         if(error.status === 409){

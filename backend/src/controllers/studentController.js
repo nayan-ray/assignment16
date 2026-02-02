@@ -78,9 +78,7 @@ const userRegister= async(req, res,next) => {
         return successResponse(res,{
             statusCode  : 200,
             message  : 'Student registered successfully',
-            payload :{
-                token
-            }
+           
         })
 
 
