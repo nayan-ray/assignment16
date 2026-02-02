@@ -1,6 +1,7 @@
 import express from 'express';
 import createError from 'http-errors';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 import morgan from 'morgan';
 import path from 'path';
 import { fileURLToPath } from "url";
@@ -24,6 +25,10 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+app.use(cors({
+  origin: "http://localhost:5173", // exact frontend origin
+  credentials: true
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());

@@ -12,7 +12,7 @@ import { deleteImageByPath } from "../helper/deleteImagePath.js";
 const userRegister= async(req, res,next) => {
     try {
         //taken user info
-       const  {name, email, password, phone, address, classId} = req.body;
+       const  {name, email, password, phone, classId} = req.body;
        //take user image
 
        let image  = null;
@@ -30,10 +30,18 @@ const userRegister= async(req, res,next) => {
         
 
         //create newUSer object
-        const newUser = {
-            name, email, password, phone, address,  image, classId
+        let newUser = {
+            name, email, password, phone, classId
 
         }
+       
+         if(req.body.address){
+            newUser.address = req.body.address
+         }
+
+         if(image){
+            newUser.image = `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`;
+         }
         
         //create token
         
@@ -50,7 +58,7 @@ const userRegister= async(req, res,next) => {
                        <p>welcome to our online nctb books learning platform</p>
                      
                       <p>Please click here to
-                         <a href='http://localhost:3000/api/user/activate/${token}'>
+                         <a href='http://localhost:5173/active-account/${token}'>
                           activate your account
                         </a>
                        </p>

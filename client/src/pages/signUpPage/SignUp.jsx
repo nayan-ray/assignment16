@@ -3,16 +3,22 @@ import "./signUp.css"
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { setStudent } from '../../features/signUp/signUpSlice'
+import { authApi } from '../../api/signUpApi'
 
 const SignUp = () => {
      const student = useSelector((state) => state.signup.student)
      const dispatch = useDispatch();
      console.log("student data from redux store:", student);
+
+     const handleSubmit = (e)=>{
+         e.preventDefault();
+         authApi(student);
+     }
   return (
     <div className='sign-up-container'>
        <div className="sign-up-wrapper">
            <h2 className='sign-up-title'>Sign Up</h2>
-           <form className="sign-up-form" >
+           <form className="sign-up-form" onSubmit={handleSubmit}>
             <div className="form-group">
                 <label htmlFor="user-name">
                    Student Name : 
