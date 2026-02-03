@@ -121,7 +121,8 @@ const activeUserProcess= async(req, res, next) => {
 
                }
 
-              
+            
+             
         
            //finally save user in database
  

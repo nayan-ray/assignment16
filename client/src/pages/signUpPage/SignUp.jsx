@@ -57,7 +57,7 @@ const SignUp = () => {
                 {/* dropdown for class */}
                 <select className='dropdown-class'  id="user-class" name='classId' value={student?.classId || ''} required onChange={(e) => dispatch(setStudent({field: e.target.name, value: e.target.value}))} disabled={isLoading}>
                     <option value="">Select Class</option>
-                    <option value="Ten">Ten</option>
+                    <option value="693f766e9d21b62514bf567a">Ten</option>
                     <option value="Eight">Eight</option> 
                     <option value="class3">Class 3</option>
                     <option value="class4">Class 4</option>
