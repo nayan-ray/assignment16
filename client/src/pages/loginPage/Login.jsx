@@ -3,13 +3,16 @@ import {Link} from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import "./login.css"
 import { setStudent } from '../../features/login/loginSlice'
+import { loginApi } from '../../api/signUpApi'
 
 const Login = () => {
-   const student = useSelector((state) => state.signup.student);
+   const student = useSelector((state) => state.login.student);
      const isLoading = useSelector((state)=> state.loader.isLoading);
+     const dispatch = useDispatch()
 
      const handleSubmit = (e)=>{
         e.preventDefault();
+        loginApi(student)
      }
   return (
     <div className='login-container'>

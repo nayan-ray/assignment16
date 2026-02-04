@@ -36,7 +36,7 @@ const handleLogin =  async(req, res, next)=>{
         if(user.isBanned){
             throw  createError(401, "Your account is banned.  Please contact admin");
         }
-        const student = {name : user.name, email : user.email, id : user._id};
+        const student = {name : user.name, email : user.email, id : user._id, classId : user.classId};
         // create  token
         const accessToken = createToken(student, login_secret_key, "10m" ) 
           
@@ -44,14 +44,14 @@ const handleLogin =  async(req, res, next)=>{
         res.cookie("access_token", accessToken, {
             httpOnly: true,
             maxAge: 1000 * 60 * 10, // 10 minutes
-            // secure: true,
+             secure: false,
             sameSite : "none"
         })
        
         return successResponse(res,{
             statusCode  : 200,
             message  : 'user login successfully',
-            
+            payload : student
         })
         
     } catch (error) {
