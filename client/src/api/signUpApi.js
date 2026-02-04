@@ -45,3 +45,23 @@ export const activateAccountApi = async(token)=>{
         store.dispatch(hideLoader())
     }
 }
+
+export const loginApi = async(student)=>{
+     try {
+        store.dispatch(showLoader())
+         await axios.post('http://localhost:3000/api/v1/auth/login', student, {
+            headers : {
+                'Content-Type': 'application/json'
+           },
+            withCredentials : true
+        })
+        
+        return true;
+    } catch (error) {
+       
+        alert("Registration failed. Please try again." )
+         return false ; 
+    }finally{
+        store.dispatch(hideLoader())
+    }
+}

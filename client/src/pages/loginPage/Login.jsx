@@ -1,25 +1,33 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
 import "./login.css"
+import { setStudent } from '../../features/login/loginSlice'
 
 const Login = () => {
+   const student = useSelector((state) => state.signup.student);
+     const isLoading = useSelector((state)=> state.loader.isLoading);
+
+     const handleSubmit = (e)=>{
+        e.preventDefault();
+     }
   return (
     <div className='login-container'>
        <div className="login-wrapper">
            <h2 className='login-title'>Login</h2>
-           <form className="login-form" >
+           <form className="login-form" onSubmit={handleSubmit}>
            
             <div className="form-group">
                 <label htmlFor="user-email">
                    email : 
                 </label>
-                <input type="text" id='user-email' placeholder='Enter your email' required />
+                <input type="email" name='email' value={student?.email || ''} id='user-email' placeholder='Enter your email' required disabled={isLoading} onChange={(e) => dispatch(setStudent({field: e.target.name, value: e.target.value}))}/>
             </div>
             <div className="form-group">
                 <label htmlFor="user-password">
                    password : 
                 </label>
-                <input type="text" id='user-password' placeholder='Enter your password' required />
+                <input type="password" name='password' value={student?.password || ''} id='user-password' placeholder='Enter your password' required disabled={isLoading} onChange={(e) => dispatch(setStudent({field: e.target.name, value: e.target.value}))}/>
             </div>
            
             
