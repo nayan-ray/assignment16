@@ -56,14 +56,19 @@ export const loginApi = async(student)=>{
            },
             withCredentials : true
         })
-       console.log(response.data.payload);
-    
-        // setStudentLocal()
+        setStudentLocal(response.data.payload);
         return true;
     } catch (error) {
-       
-        alert("Registration failed. Please try again." )
-         return false ; 
+       if(error.status === 404){
+            alert('User not found. Please register first.');
+            return false;
+       }
+       if(error.status === 401){
+           alert('Invalid password or email.');
+           return false;
+       }
+        alert("Login failed. Please try again." )
+        return false ; 
     }finally{
         store.dispatch(hideLoader())
     }

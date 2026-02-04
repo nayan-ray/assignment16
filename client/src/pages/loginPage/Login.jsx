@@ -1,18 +1,25 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import "./login.css"
-import { setStudent } from '../../features/login/loginSlice'
+import { clearStudent, setStudent } from '../../features/login/loginSlice'
 import { loginApi } from '../../api/signUpApi'
 
 const Login = () => {
    const student = useSelector((state) => state.login.student);
      const isLoading = useSelector((state)=> state.loader.isLoading);
      const dispatch = useDispatch()
+     const navigate = useNavigate();
 
-     const handleSubmit = (e)=>{
+     const handleSubmit = async(e)=>{
         e.preventDefault();
-        loginApi(student)
+        const isLogin = await loginApi(student);
+        if(isLogin){
+             navigate('/')
+            
+        }else{
+           dispatch(clearStudent())
+        }
      }
   return (
     <div className='login-container'>
