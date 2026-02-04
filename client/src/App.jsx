@@ -16,29 +16,38 @@ import NoPageFound from './pages/noPage/NoPageFound';
 import Profile from './pages/profilePage/Profile';
 import TakeEmail from './pages/takeEmailPage/TakeEmail';
 import ResetPassword from './pages/ResetPasswordPage/ResetPassword';
+import { useState } from 'react';
 
 
 function App() {
-  
+   const [isLoggedIn, setIsLoggedIn] = useState(false)
+      useEffect(()=>{
+          const student = getStudentLocal();
+          if(student ){
+             setIsLoggedIn(true)
+          }else{
+            setIsLoggedIn(false)
+          }
+      }, [])
 
   return (
     <>
     
       <Routes>
          <Route path='/' element={<Home />}/>
-         <Route path='/dashboard' element={<Dashboard />}/>
+         <Route path='/dashboard' element={isLoggedIn ?  <Dashboard /> : <Login/>}/>
          <Route path='/dashboard/:subj' element={<Unit />}/>
-         <Route path='/dashboard/:subjName/:unitName' element={<UnitDetails />}/>
-         <Route path='/dashboard/:subjName/:unitName/note' element={<Note />}/>
-         <Route path='/dashboard/:subjName/:unitName/question' element={<Ques />}/>
-         <Route path='/dashboard/:subjName/:unitName/quiz' element={<Quiz />}/>
-         <Route path='/dashboard/:subjName/:unitName/exam' element={<ExamQuiz />}/>
-         <Route path='/profile' element={<Profile />}/>
+         <Route path='/dashboard/:subjName/:unitName' element={isLoggedIn ? <UnitDetails /> : <Login/>}/>
+         <Route path='/dashboard/:subjName/:unitName/note' element={isLoggedIn ? <Note /> : <Login/>}/>
+         <Route path='/dashboard/:subjName/:unitName/question' element={isLoggedIn ? <Ques /> : <Login/>}/>
+         <Route path='/dashboard/:subjName/:unitName/quiz' element={isLoggedIn ? <Quiz /> : <Login/>}/>
+         <Route path='/dashboard/:subjName/:unitName/exam' element={isLoggedIn ? <ExamQuiz /> : <Login/>}/>
+         <Route path='/profile' element={isLoggedIn ?  <Profile /> : <Login/>}/>
          <Route path='/check-email' element={<TakeEmail />}/>
          <Route path='/reset-password/:token' element={<ResetPassword />}/>
-         <Route path='/result' element={<Result />}/>
-         <Route path='/login' element={<Login />}/>
-         <Route path='/register' element={<SignUp />}/>
+         <Route path='/result' element={isLoggedIn ? <Result /> : <Login/>}/>
+         <Route path='/login' element={isLoggedIn ? <Home />: <Login />}/>
+         <Route path='/register' element={isLoggedIn ? <Home /> : <SignUp />}/>
          <Route path='/active-account/:token' element={<ActiveAccount />}/>
          <Route path='*' element={<NoPageFound />}/>
       </Routes>

@@ -1,10 +1,20 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import "./header.css"
+import { getStudentLocal } from '../../helper/auth';
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const isLoggedIn = true;
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
+    useEffect(()=>{
+        const student = getStudentLocal();
+        if(student ){
+           setIsLoggedIn(true)
+        }else{
+          setIsLoggedIn(false)
+        }
+    }, [])
+    
   return (
     <div className='header'>    
         <div className="header-wrapper">
