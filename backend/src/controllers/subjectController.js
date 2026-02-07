@@ -3,6 +3,7 @@ import createHttpError from "http-errors";
 import Subject from "../models/subject.js";
 import {findUserById} from "../helper/commonService.js"
 import mongoose from "mongoose";
+import deSlugify from "../helper/deSlugifyText.js";
 
 
 
@@ -61,6 +62,28 @@ const deleteSubject = async (req, res, next) => {
     }
 }
 
+const getSubjIdBySubjName = async (req, res, next)=>{
+    console.log(req.student);
+    
+    const subjName = req.params.subjName;
+    const classID = req.student.classId;
+    const deSlugifiedName = deSlugify(subjName);
+   try {
+    const subject = await Subject.findOne({subjName : deSlugifiedName, classId : classID})
+    if(!subject){
+        throw createHttpError(404, "Subject not found");
+    }
+    return successResponse(res, {
+        statusCode: 200,
+        message: "Subject found",
+        payload: subject._id
+    })
+      
+   } catch (error) {
+       next(error)
+   }
+}
+
 const getAllSubjectsByClassId = async (req, res, next) => {
     const classId = req.params.id;
     try {
@@ -83,4 +106,4 @@ const getAllSubjectsByClassId = async (req, res, next) => {
     }
 }
 
-export { createSubject, updateSubject, deleteSubject, getAllSubjectsByClassId };
+export { createSubject, updateSubject, deleteSubject, getAllSubjectsByClassId, getSubjIdBySubjName };
