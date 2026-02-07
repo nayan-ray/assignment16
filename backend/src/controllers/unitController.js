@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import { findUserById } from "../helper/commonService.js";
 import { successResponse } from "../helper/response.js";
 import Unit from "../models/unit.js";
+import deSlugify from "../helper/deSlugifyText.js"
 
 
 const createUnit = async (req, res, next) => {
@@ -62,6 +63,28 @@ const deleteUnit = async (req, res, next) => {
         });
     } catch (error) {
         next(error);
+    }
+}
+
+const getUnitIdByName = async (req, res, next)=>{
+    const {unitName} = req.params;
+    const slugifiedName = deSlugify(unitName);
+    console.log(slugifiedName);
+    
+    const classId = req.student.classId;
+    try {
+        const unit = await Unit.findOne({unitName : slugifiedName, classId : classId})
+        if(!unit){
+            throw createHttpError(404, "Unit not found");
+        }
+        return successResponse(res, {
+            statusCode: 200,
+            message: "Unit found",
+            payload: unit._id
+        })
+      
+    } catch (error) {
+        next(error)
     }
 }
 
@@ -146,4 +169,4 @@ const getUnitDetails = async (req, res, next) => {
     }
 }
 
-export { createUnit, updateUnit, deleteUnit, getAllUnitsBySubjectId, getUnitDetails };
+export { createUnit, updateUnit, deleteUnit, getAllUnitsBySubjectId, getUnitDetails, getUnitIdByName };
