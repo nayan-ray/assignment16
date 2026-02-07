@@ -45,7 +45,7 @@ const handleLogin =  async(req, res, next)=>{
             httpOnly: true,
             maxAge: 1000 * 60 * 10, // 10 minutes
              secure: false,
-            sameSite : "none"
+            sameSite : "lax"
         })
        
         return successResponse(res,{
