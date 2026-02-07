@@ -16,7 +16,8 @@ import NoPageFound from './pages/noPage/NoPageFound';
 import Profile from './pages/profilePage/Profile';
 import TakeEmail from './pages/takeEmailPage/TakeEmail';
 import ResetPassword from './pages/ResetPasswordPage/ResetPassword';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { getStudentLocal } from './helper/auth';
 
 
 function App() {

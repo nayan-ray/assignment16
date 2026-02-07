@@ -6,13 +6,19 @@ import { store } from './app/store.js'
 import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import AuthenContex from './context/AuthenContex.jsx'
+
+
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
-    <Provider store={store}>
-       <App />
-    </Provider>
+    <AuthenContex>
+       <Provider store={store}>
+          <App /> 
+       </Provider>
+    </AuthenContex>
+   
       
     </BrowserRouter>
     

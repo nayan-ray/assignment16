@@ -42,7 +42,7 @@ const Header = () => {
                         <li className="nav-item" onClick={handleLogOut}>Logout</li>
                         <li className="nav-item"><Link className="nav-link" to="/profile">Profile</Link></li>
                       </> : 
-                        <li className="nav-item">Login</li>
+                         <li className="nav-item"><Link className="nav-link" to="/login">Login</Link></li>
                       }                    
                 </ul>
             </nav>
@@ -63,7 +63,7 @@ const Header = () => {
                         <li className="nav-item">Logout</li>
                         <li className="nav-item"><Link className="nav-link" to="/profile">Profile</Link></li>
                       </> : 
-                        <li className="nav-item">Login</li>
+                        <li className="nav-item"><Link className="nav-link" to="/login">login</Link></li>
                       }                    
             </ul>
             : <></>
