@@ -1,27 +1,25 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link, useNavigate, } from 'react-router-dom'
 import "./header.css"
 import { getStudentLocal } from '../../helper/auth';
 import { logOutApi } from '../../api/signUpApi';
+import { AuthContext } from '../../context/AuthenContex';
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+   
+    const {student, logout} = useContext(AuthContext)
      const navigate= useNavigate();
-    useEffect(()=>{
-        const student = getStudentLocal();
-        if(student ){
-           setIsLoggedIn(true)
-        }else{
-          setIsLoggedIn(false)
-        }
-    }, [])
+    
+      
+        
+   
 
     const handleLogOut = async()=>{
         const isLogOut = await logOutApi();
 
         if(isLogOut){
-           setIsLoggedIn(false);
+           logout();
            navigate('/')
         }
     }
@@ -35,7 +33,7 @@ const Header = () => {
                     <li className="nav-item"> <Link className="nav-link" to="/">Home</Link></li>
                      <li className="nav-item"><Link className="nav-link" to="/about">About</Link></li>
                       <li className="nav-item"><Link className="nav-link" to="/contact">Contact</Link></li>
-                      {isLoggedIn ? <>
+                      {student ? <>
                         
                         <li className="nav-item"><Link className="nav-link" to="/dashboard">Dashboard</Link></li>
                         <li className="nav-item"><Link className="nav-link" to="/score">Score</Link></li>
@@ -56,11 +54,11 @@ const Header = () => {
                     </li>
                      <li className="nav-item"><Link className="nav-link" to="/about">About</Link></li>
                       <li className="nav-item"><Link className="nav-link" to="/contact">Contact</Link></li>
-                      {isLoggedIn ? <>
+                      {student ? <>
                         
                         <li className="nav-item"><Link className="nav-link" to="/dashboard">Dashboard</Link></li>
                         <li className="nav-item"><Link className="nav-link" to="/score">Score</Link></li>
-                        <li className="nav-item">Logout</li>
+                        <li className="nav-item" onClick={handleLogOut}>Logout</li>
                         <li className="nav-item"><Link className="nav-link" to="/profile">Profile</Link></li>
                       </> : 
                         <li className="nav-item"><Link className="nav-link" to="/login">login</Link></li>
