@@ -16,39 +16,51 @@ import NoPageFound from './pages/noPage/NoPageFound';
 import Profile from './pages/profilePage/Profile';
 import TakeEmail from './pages/takeEmailPage/TakeEmail';
 import ResetPassword from './pages/ResetPasswordPage/ResetPassword';
-import { useEffect, useState } from 'react';
-import { getStudentLocal } from './helper/auth';
+import PublicRoutes from './routes/PublicRoutes';
+import ProtectedRoutes from './routes/ProtectedRoutes';
+
 
 
 function App() {
-   const [isLoggedIn, setIsLoggedIn] = useState(false)
-      useEffect(()=>{
-          const student = getStudentLocal();
-          if(student ){
-             setIsLoggedIn(true)
-          }else{
-            setIsLoggedIn(false)
-          }
-      }, [])
+  
 
   return (
     <>
     
       <Routes>
          <Route path='/' element={<Home />}/>
-         <Route path='/dashboard' element={isLoggedIn ?  <Dashboard /> : <Login/>}/>
-         <Route path='/dashboard/:subj' element={<Unit />}/>
-         <Route path='/dashboard/:subjName/:unitName' element={isLoggedIn ? <UnitDetails /> : <Login/>}/>
-         <Route path='/dashboard/:subjName/:unitName/note' element={isLoggedIn ? <Note /> : <Login/>}/>
-         <Route path='/dashboard/:subjName/:unitName/question' element={isLoggedIn ? <Ques /> : <Login/>}/>
-         <Route path='/dashboard/:subjName/:unitName/quiz' element={isLoggedIn ? <Quiz /> : <Login/>}/>
-         <Route path='/dashboard/:subjName/:unitName/exam' element={isLoggedIn ? <ExamQuiz /> : <Login/>}/>
-         <Route path='/profile' element={isLoggedIn ?  <Profile /> : <Login/>}/>
+          <Route
+             path="/login"
+             element={
+            <PublicRoutes>
+              <Login />
+            </PublicRoutes>
+           }
+          />
+
+          <Route
+             path="/register"
+             element={
+            <PublicRoutes>
+              <SignUp />
+            </PublicRoutes>
+           }
+          />
+
+        
+
+         <Route path='/dashboard' element={<ProtectedRoutes> <Dashboard /> </ProtectedRoutes>}/>
+         <Route path='/dashboard/:subj' element={<ProtectedRoutes><Unit /></ProtectedRoutes>}/>
+         <Route path='/dashboard/:subjName/:unitName' element={<ProtectedRoutes><UnitDetails /></ProtectedRoutes>}/>
+         <Route path='/dashboard/:subjName/:unitName/note' element={<ProtectedRoutes><Note /></ProtectedRoutes>}/>
+         <Route path='/dashboard/:subjName/:unitName/question' element={<ProtectedRoutes><Ques /></ProtectedRoutes>}/>
+         <Route path='/dashboard/:subjName/:unitName/quiz' element={<ProtectedRoutes><Quiz /></ProtectedRoutes>}/>
+         <Route path='/dashboard/:subjName/:unitName/exam' element={<ProtectedRoutes><ExamQuiz /></ProtectedRoutes>}/>
+         <Route path='/profile' element={<ProtectedRoutes><Profile /></ProtectedRoutes>}/>
          <Route path='/check-email' element={<TakeEmail />}/>
          <Route path='/reset-password/:token' element={<ResetPassword />}/>
-         <Route path='/result' element={isLoggedIn ? <Result /> : <Login/>}/>
-         <Route path='/login' element={isLoggedIn ? <Home />: <Login />}/>
-         <Route path='/register' element={isLoggedIn ? <Home /> : <SignUp />}/>
+         <Route path='/result' element={<ProtectedRoutes><Result /></ProtectedRoutes>}/>
+        
          <Route path='/active-account/:token' element={<ActiveAccount />}/>
          <Route path='*' element={<NoPageFound />}/>
       </Routes>
