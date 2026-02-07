@@ -85,7 +85,7 @@ const getSubjIdBySubjName = async (req, res, next)=>{
 }
 
 const getAllSubjectsByClassId = async (req, res, next) => {
-    const classId = req.params.id;
+    const classId = req.student.classId;
     try {
         
         const classIdObj = new mongoose.Types.ObjectId(classId);

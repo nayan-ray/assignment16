@@ -69,7 +69,6 @@ const deleteUnit = async (req, res, next) => {
 const getUnitIdByName = async (req, res, next)=>{
     const {unitName} = req.params;
     const slugifiedName = deSlugify(unitName);
-    console.log(slugifiedName);
     
     const classId = req.student.classId;
     try {

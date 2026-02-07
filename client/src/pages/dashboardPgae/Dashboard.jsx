@@ -3,8 +3,13 @@ import Header from '../../components/header/Header'
 import "./dashboard.css"
 import Footer from '../../components/footer/Footer'
 import { Link } from 'react-router-dom'
+import { useEffect } from 'react'
+import { dashboardApi } from '../../api/dashboard'
 
 const Dashboard = () => {
+  useEffect(()=>{
+     dashboardApi();
+  }, [])
   return (
     <div className='dashboard-container'>
       <div className="dashboard-wrapper">
