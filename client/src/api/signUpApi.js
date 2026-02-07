@@ -1,7 +1,7 @@
 import axios from "axios"
 import {store} from "../app/store"
 import { hideLoader, showLoader } from "../features/loader/loaderSlice"
-import { setStudentLocal } from "../helper/auth"
+import { removeStudentLocal, setStudentLocal } from "../helper/auth"
 
 export const authApi = async(student)=>{
     try {
@@ -68,6 +68,26 @@ export const loginApi = async(student)=>{
            return false;
        }
         alert("Login failed. Please try again." )
+        return false ; 
+    }finally{
+        store.dispatch(hideLoader())
+    }
+}
+
+export const logOutApi = async()=>{
+     try {
+        store.dispatch(showLoader())
+        await axios.post('http://localhost:3000/api/v1/auth/logout',  {
+            headers : {
+                'Content-Type': 'application/json'
+           },
+            withCredentials : true
+        })
+        removeStudentLocal();
+        return true;
+    } catch (error) {
+       
+        alert("Logout failed. Please try again." )
         return false ; 
     }finally{
         store.dispatch(hideLoader())

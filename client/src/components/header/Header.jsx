@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate, } from 'react-router-dom'
 import "./header.css"
 import { getStudentLocal } from '../../helper/auth';
+import { logOutApi } from '../../api/signUpApi';
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [isLoggedIn, setIsLoggedIn] = useState(false)
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+     const navigate= useNavigate();
     useEffect(()=>{
         const student = getStudentLocal();
         if(student ){
@@ -14,6 +16,15 @@ const Header = () => {
           setIsLoggedIn(false)
         }
     }, [])
+
+    const handleLogOut = async()=>{
+        const isLogOut = await logOutApi();
+
+        if(isLogOut){
+           setIsLoggedIn(false);
+           navigate('/')
+        }
+    }
     
   return (
     <div className='header'>    
@@ -28,7 +39,7 @@ const Header = () => {
                         
                         <li className="nav-item"><Link className="nav-link" to="/dashboard">Dashboard</Link></li>
                         <li className="nav-item"><Link className="nav-link" to="/score">Score</Link></li>
-                        <li className="nav-item"><Link className="nav-link" to="/logout">Logout</Link></li>
+                        <li className="nav-item" onClick={handleLogOut}>Logout</li>
                         <li className="nav-item"><Link className="nav-link" to="/profile">Profile</Link></li>
                       </> : 
                         <li className="nav-item">Login</li>
@@ -49,7 +60,7 @@ const Header = () => {
                         
                         <li className="nav-item"><Link className="nav-link" to="/dashboard">Dashboard</Link></li>
                         <li className="nav-item"><Link className="nav-link" to="/score">Score</Link></li>
-                        <li className="nav-item"><Link className="nav-link" to="/logout">Logout</Link></li>
+                        <li className="nav-item">Logout</li>
                         <li className="nav-item"><Link className="nav-link" to="/profile">Profile</Link></li>
                       </> : 
                         <li className="nav-item">Login</li>
