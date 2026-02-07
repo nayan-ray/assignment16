@@ -3,7 +3,11 @@ import { Navigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthenContex";
 
 const ProtectedRoutes = ({children}) => {
-    const {student} = useContext(AuthContext)
+    const {student, loading} = useContext(AuthContext)
+   if(loading){
+    return <p>Loading...</p>
+   }
+
     if(!student){
         return <Navigate to={'/login'} replace={true} />
     }

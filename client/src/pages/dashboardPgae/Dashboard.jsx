@@ -2,6 +2,7 @@ import React from 'react'
 import Header from '../../components/header/Header'
 import "./dashboard.css"
 import Footer from '../../components/footer/Footer'
+import { Link } from 'react-router-dom'
 
 const Dashboard = () => {
   return (
@@ -11,7 +12,7 @@ const Dashboard = () => {
           <div>
             <h2 className='text-center'>Subjects</h2>
             <ul className='text-center list'>
-              <li className='py-2 item'>math</li>
+              <li className='py-2 item'><Link to="/dashboard/math">math</Link></li>
               <li className='py-2 item'>science</li>
               <li className='py-2 item'>english</li>
             </ul>

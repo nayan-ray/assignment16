@@ -5,10 +5,12 @@ export const AuthContext = createContext();
 
 const AuthenContex = ({children}) => {
    const [student, setStudent] = useState(null);
+   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const data = getStudentLocal();
     setStudent(data);
+    setLoading(false);
   }, []);
 
   const login = (studentData) => {
@@ -21,7 +23,7 @@ const AuthenContex = ({children}) => {
   };
 
   return (
-    <AuthContext.Provider value={{ student, login, logout }}>
+    <AuthContext.Provider value={{ student, login, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );

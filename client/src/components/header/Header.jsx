@@ -1,7 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link, useNavigate, } from 'react-router-dom'
 import "./header.css"
-import { getStudentLocal } from '../../helper/auth';
 import { logOutApi } from '../../api/signUpApi';
 import { AuthContext } from '../../context/AuthenContex';
 

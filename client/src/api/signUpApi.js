@@ -56,8 +56,9 @@ export const loginApi = async(student)=>{
            },
             withCredentials : true
         })
-        setStudentLocal(response.data.payload);
-        return true;
+        const studentData = response.data.payload
+        setStudentLocal(studentData);
+        return studentData;
     } catch (error) {
        if(error.status === 404){
             alert('User not found. Please register first.');

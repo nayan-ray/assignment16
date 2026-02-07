@@ -50,7 +50,7 @@ function App() {
         
 
          <Route path='/dashboard' element={<ProtectedRoutes> <Dashboard /> </ProtectedRoutes>}/>
-         <Route path='/dashboard/:subj' element={<ProtectedRoutes><Unit /></ProtectedRoutes>}/>
+         <Route path='/dashboard/:subjName' element={<ProtectedRoutes> <Unit /></ProtectedRoutes>}/>
          <Route path='/dashboard/:subjName/:unitName' element={<ProtectedRoutes><UnitDetails /></ProtectedRoutes>}/>
          <Route path='/dashboard/:subjName/:unitName/note' element={<ProtectedRoutes><Note /></ProtectedRoutes>}/>
          <Route path='/dashboard/:subjName/:unitName/question' element={<ProtectedRoutes><Ques /></ProtectedRoutes>}/>
