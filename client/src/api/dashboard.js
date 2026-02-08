@@ -14,7 +14,9 @@ export const dashboardApi = async()=>{
             withCredentials : true
         })
         console.log(response);
-        
+        if(response.status === 200 && response.data.success){
+            store.dispatch(setSubjects(response.data.payload))
+        }
        
         
     } catch (error) {
@@ -23,7 +25,7 @@ export const dashboardApi = async()=>{
             return;
         }
      
-           
+       alert("Something went wrong while fetching subjects.")      
     }finally{
         store.dispatch(hideLoader())
     }

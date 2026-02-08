@@ -5,11 +5,19 @@ import Footer from '../../components/footer/Footer'
 import { Link } from 'react-router-dom'
 import { useEffect } from 'react'
 import { dashboardApi } from '../../api/dashboard'
+import { useSelector } from 'react-redux'
+import Loader from '../../components/loader/Loader'
 
 const Dashboard = () => {
+   const subjects = useSelector((state) => state.dashboard.subjects);
+   const isLoading = useSelector((state) => state.loader.isLoading);
   useEffect(()=>{
      dashboardApi();
   }, [])
+ if(isLoading){
+    return <Loader />
+ }
+
   return (
     <div className='dashboard-container'>
       <div className="dashboard-wrapper">
@@ -17,9 +25,10 @@ const Dashboard = () => {
           <div>
             <h2 className='text-center'>Subjects</h2>
             <ul className='text-center list'>
-              <li className='py-2 item'><Link to="/dashboard/math">math</Link></li>
-              <li className='py-2 item'>science</li>
-              <li className='py-2 item'>english</li>
+              {subjects.length > 0 && !isLoading && subjects.map((subject)=>{
+                  return <li key={subject._id} className='py-2 item'><Link to={`/dashboard/`}>{subject.subjName}</Link></li>
+              })}
+             
             </ul>
           </div>
           <Footer />
