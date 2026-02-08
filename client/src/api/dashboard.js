@@ -16,16 +16,18 @@ export const dashboardApi = async()=>{
         console.log(response);
         if(response.status === 200 && response.data.success){
             store.dispatch(setSubjects(response.data.payload))
+            
         }
        
         
     } catch (error) {
-        if(error.status === 401){
-            alert("Please login first.");
-            return;
+        if(error.response?.status === 401){
+            
+          
         }
      
-       alert("Something went wrong while fetching subjects.")      
+      
+       
     }finally{
         store.dispatch(hideLoader())
     }
