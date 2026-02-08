@@ -6,7 +6,7 @@ export const AuthContext = createContext();
 const AuthenContex = ({children}) => {
    const [student, setStudent] = useState(null);
    const [loading, setLoading] = useState(true);
-
+   
   useEffect(() => {
     const data = getStudentLocal();
     setStudent(data);
@@ -18,12 +18,12 @@ const AuthenContex = ({children}) => {
   };
 
   const logout = () => {
-    removeStudentLocal // change key if yours is different
+    removeStudentLocal(); // change key if yours is different
     setStudent(null);
   };
 
   return (
-    <AuthContext.Provider value={{ student, login, logout, loading }}>
+    <AuthContext.Provider value={{ student, login, logout, loading, setStudent }}>
       {children}
     </AuthContext.Provider>
   );

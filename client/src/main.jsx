@@ -12,15 +12,14 @@ import AuthenContex from './context/AuthenContex.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter>
-    <AuthenContex>
-       <Provider store={store}>
-          <App /> 
-       </Provider>
-    </AuthenContex>
+    <Provider store={store}>
+       <AuthenContex> 
+             <BrowserRouter>
+                <App />    
+           </BrowserRouter>
+        </AuthenContex>
+    </Provider>
    
-      
-    </BrowserRouter>
     
   </StrictMode>,
 )
