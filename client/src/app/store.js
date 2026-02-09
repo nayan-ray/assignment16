@@ -4,6 +4,7 @@ import loaderReducer from "../features/loader/loaderSlice"
 import loginReducer from "../features/login/loginSlice"
 import dashboardReducer from "../features/dashboard/dashboardSlice"
 import unitReducer from "../features/unit/unitSlice"
+import unitDetailsReducer from '../features/unitDetails/unitDetailSlice'
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     loader : loaderReducer,
     login : loginReducer,
     dashboard : dashboardReducer,
-    unit : unitReducer
+    unit : unitReducer,
+    unitDetail : unitDetailsReducer
   },
 })
