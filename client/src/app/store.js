@@ -5,6 +5,7 @@ import loginReducer from "../features/login/loginSlice"
 import dashboardReducer from "../features/dashboard/dashboardSlice"
 import unitReducer from "../features/unit/unitSlice"
 import unitDetailsReducer from '../features/unitDetails/unitDetailSlice'
+import noteReducer from "../features/note/noteSlice"
 
 export const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ export const store = configureStore({
     login : loginReducer,
     dashboard : dashboardReducer,
     unit : unitReducer,
-    unitDetail : unitDetailsReducer
+    unitDetail : unitDetailsReducer,
+    note : noteReducer
   },
 })

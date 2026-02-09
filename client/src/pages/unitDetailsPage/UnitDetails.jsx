@@ -44,7 +44,7 @@ const UnitDetails = () => {
           <div>
             <h2 className='text-center mb-4'>Unit Details</h2>
             <ul className='text-center list'>
-               {unitDetails[0]?.notes[0]?.totalNotes > 0 && (
+               {unitDetails[0]?.notes[0]?.totalNotes > 0 && !isLoading &&(
                   <li className='py-2 item'>
                      <Link to={`/dashboard/${slugify(subjName)}/${slugify(unitName)}/note`} state={unitIdToState}>
                        <div className="details-wrapper">
@@ -57,7 +57,7 @@ const UnitDetails = () => {
                )}
 
               
-               {unitDetails[0]?.questions[0]?.totalQuestions > 0 && (
+               {unitDetails[0]?.questions[0]?.totalQuestions > 0 && !isLoading && (
                   <li className='py-2 item'>
                     <Link to={`/dashboard/${slugify(subjName)}/${slugify(unitName)}/question`}state={unitIdToState}>
                        <div className="details-wrapper">
@@ -68,7 +68,7 @@ const UnitDetails = () => {
                   </li>
                )}
 
-             {unitDetails[0]?.quizzes[0]?.totalQuizzes > 0 && (
+             {unitDetails[0]?.quizzes[0]?.totalQuizzes > 0 && !isLoading && (
                   <li className='py-2 item'>
                      <Link to={`/dashboard/${slugify(subjName)}/${slugify(unitName)}/quiz`} state={unitIdToState}>
                         <div className="details-wrapper">
