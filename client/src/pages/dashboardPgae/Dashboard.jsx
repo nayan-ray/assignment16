@@ -3,7 +3,7 @@ import slugify from 'slugify'
 import Header from '../../components/header/Header'
 import "./dashboard.css"
 import Footer from '../../components/footer/Footer'
-import { Link, Navigate} from 'react-router-dom'
+import { Link, Navigate, useNavigate} from 'react-router-dom'
 import { useEffect } from 'react'
 import { dashboardApi } from '../../api/dashboard'
 import { useSelector } from 'react-redux'
@@ -13,24 +13,22 @@ import { AuthContext } from '../../context/AuthenContex'
 const Dashboard = () => {
    const subjects = useSelector((state) => state.dashboard.subjects);
    const isLoading = useSelector((state) => state.loader.isLoading);
-  const {student, setStudent} = useContext(AuthContext)
+  const { setStudent} = useContext(AuthContext);
+  const navigate = useNavigate()
 
   useEffect(()=>{
    
-       dashboardApi(setStudent);
+       dashboardApi(setStudent, navigate);
      
     
-  }, [])
+  }, [setStudent, navigate])
 
 
  if(isLoading){
     return <Loader />
  }
  
- if(!student){
-    return <Navigate to={'/login'} replace/>
 
- }
 
   return (
     <div className='dashboard-container'>
@@ -40,7 +38,7 @@ const Dashboard = () => {
             <h2 className='text-center'>Subjects</h2>
             <ul className='text-center list'>
               {subjects.length > 0 && !isLoading && subjects.map((subject)=>{
-                  return <li key={subject._id} className='py-2 item'><Link to={`/dashboard/${slugify(subject.subjName, {lower : true})}`}>{subject.subjName}</Link></li>
+                  return <li key={subject._id} className='py-2 item'><Link to={`/dashboard/${slugify(subject.subjName, {lower : true})}`} state={subject._id}>{subject.subjName}</Link></li>
               })}
              
             </ul>

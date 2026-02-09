@@ -3,9 +3,10 @@ import {store} from "../app/store"
 import { hideLoader, showLoader } from "../features/loader/loaderSlice"
 import { setSubjects } from "../features/dashboard/dashboardSlice"
 import { removeStudentLocal } from "../helper/auth"
+import { replace } from "react-router-dom"
 
 
-export const dashboardApi = async(setStudent)=>{
+export const dashboardApi = async(setStudent, navigate)=>{
     try {
         store.dispatch(showLoader())
         const response = await axios.get('http://localhost:3000/api/v1/subject/all-subjects', {
@@ -24,7 +25,8 @@ export const dashboardApi = async(setStudent)=>{
         if(error.response?.status === 401){
             setStudent(null);
             removeStudentLocal();
-           return;
+            navigate('/login', {replace : true})
+           
         }
      
         console.log(error.message);

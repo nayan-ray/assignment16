@@ -1,8 +1,34 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import Header from "../../components/header/Header"
 import Footer from "../../components/footer/Footer"
+import { unitApi } from '../../api/unitApi'
+import Loader from '../../components/loader/Loader'
+import { Navigate } from 'react-router-dom'
+import { AuthContext } from '../../context/AuthenContex'
+import { useSelector } from 'react-redux'
+
 
 const Unit = () => {
+   const subjects = useSelector((state) => state.unit.units);
+   const isLoading = useSelector((state) => state.loader.isLoading);
+   const {student, setStudent} = useContext(AuthContext)
+ useEffect(()=>{
+   
+       unitApi(setStudent);
+     
+    
+  }, [setStudent])
+
+
+ if(isLoading){
+    return <Loader />
+ }
+ 
+ if(!student){
+    return <Navigate to={'/login'} replace/>
+
+ }
+
   return (
     <div className='dashboard-container'>
       <div className="dashboard-wrapper">
