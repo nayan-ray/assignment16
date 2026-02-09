@@ -18,7 +18,7 @@ const UnitDetails = () => {
    const {state} = useLocation();
    const unitId = state || null;
    
-   console.log(unitDetails);
+   console.log(unitDetails[0].questions[0].totalQuestions);
    
 
  useEffect(()=>{
@@ -41,27 +41,33 @@ const UnitDetails = () => {
           <div>
             <h2 className='text-center mb-4'>Unit Details</h2>
             <ul className='text-center list'>
-              <li className='py-2 item'>
-                 <div className="details-wrapper">
-                    <span className="unit-title">note</span>
-                    <span className='total-number'>20</span>
-                 </div>
-              </li>
+               {unitDetails[0].notes[0].totalNotes > 0 && (
+                  <li className='py-2 item'>
+                     <div className="details-wrapper">
+                        <span className="unit-title">Note</span>
+                        <span className='total-number'>{unitDetails[0].notes[0].totalNotes}</span>
+                     </div>
+                  </li>
+               )}
+
               
-              <li className='py-2 item'>
-                 <div className="details-wrapper">
-                    <span className="unit-title">note</span>
-                    <span className='total-number'>20</span>
-                 </div>
-              </li>
+               {unitDetails[0].questions[0].totalQuestions > 0 && (
+                  <li className='py-2 item'>
+                     <div className="details-wrapper">
+                        <span className="unit-title">Question</span>
+                        <span className='total-number'>{unitDetails[0].questions[0].totalQuestions}</span>
+                     </div>
+                  </li>
+               )}
 
-              <li className='py-2 item'>
-                 <div className="details-wrapper">
-                    <span className="unit-title">note</span>
-                    <span className='total-number'>20</span>
-                 </div>
-              </li>
-
+             {unitDetails[0].quizzes[0].totalQuizzes > 0 && (
+                  <li className='py-2 item'>
+                     <div className="details-wrapper">
+                        <span className="unit-title">Quiz</span>
+                        <span className='total-number'>{unitDetails[0].quizzes[0].totalQuizzes}</span>
+                     </div>
+                  </li>
+               )}
             </ul>
           </div>
           <Footer />
