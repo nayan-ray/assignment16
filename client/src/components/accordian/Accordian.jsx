@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import "./accordian.css";
 import "../../assets/global.css"
+import { useSelector } from "react-redux";
 
-const Accordion = ({ items, allowMultiple = false }) => {
+const Accordion = ({  allowMultiple = false }) => {
+  const questions = useSelector((state) => state.question.question);
   const [openIndexes, setOpenIndexes] = useState([]);
-
+   
+   
   const toggle = (index) => {
     setOpenIndexes((prev) => {
       if (allowMultiple) {
@@ -23,20 +26,20 @@ const Accordion = ({ items, allowMultiple = false }) => {
     <div className="list-container">
 
 
-      {items.map((item, index) => {
+      {questions.map((item, index) => {
         const isOpen = openIndexes.includes(index);
 
         return (
          <>
           <li className="numbering-gap" key={index}>
             <div className="number-text" >
-                {index + 1}
+               {`${index + 1})`}
             </div>
             <div className="body-content">
-                      <p className="body-justify">This is the first model question. It contains a detailed explanation of the topic.</p>
-                      <p className='body-justify'>A) What is the purpose of this question</p>
-                      <p className='body-justify'>B) What is the purpose of this question</p>
-                      <p className='body-justify'>C) What is the purpose of this question</p>
+                      <p className="body-justify">{item?.quesTitle}</p>
+                      <p className='body-justify'>{`A) ${item?.quesA}`}</p>
+                      <p className='body-justify'>{`B) ${item?.quesB}`}</p>
+                      <p className='body-justify'>{`C) ${item?.quesC}`}</p>
                       
           <div className="body-content">
             
@@ -59,9 +62,9 @@ const Accordion = ({ items, allowMultiple = false }) => {
               }}
             >
               <div className="accordion-content">
-                           <p className='body-justify'>Answer A : The purpose of this question is to test your understanding of the topic. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem.</p>
-                            <p className='body-justify'>Answer B : The purpose of this question is to test your understanding of the topic. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem.</p>
-                            <p className='body-justify'>Answer C : The purpose of this question is to test your understanding of the topic. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem.</p>
+                           <p className='body-justify'>Answer A : {item?.ansA}</p>
+                            <p className='body-justify'>Answer B : {item?.ansB}</p>
+                            <p className='body-justify'>Answer C : {item?.ansC}</p>
               </div>
             </div>
 

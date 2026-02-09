@@ -6,6 +6,7 @@ import dashboardReducer from "../features/dashboard/dashboardSlice"
 import unitReducer from "../features/unit/unitSlice"
 import unitDetailsReducer from '../features/unitDetails/unitDetailSlice'
 import noteReducer from "../features/note/noteSlice"
+import questionReducer from "../features/question/questionSlice"
 
 export const store = configureStore({
   reducer: {
@@ -15,6 +16,7 @@ export const store = configureStore({
     dashboard : dashboardReducer,
     unit : unitReducer,
     unitDetail : unitDetailsReducer,
-    note : noteReducer
+    note : noteReducer,
+    question : questionReducer
   },
 })
