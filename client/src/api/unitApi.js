@@ -6,7 +6,7 @@ import { removeStudentLocal } from "../helper/auth"
 import { setUnits } from "../features/unit/unitSlice"
 
 
-export const unitApi = async(setStudent, subjId, subjName)=>{
+export const unitApi = async(setStudent, navigate, subjId, subjName)=>{
     try {
         store.dispatch(showLoader())
         let subjectId = subjId;
@@ -25,7 +25,7 @@ export const unitApi = async(setStudent, subjId, subjName)=>{
                   if(error.response?.status === 401){
                    setStudent(null);
                    removeStudentLocal();
-                  return;
+                   navigate('/login', {replace : true})
                  }
                 console.log(error.message);
              }
@@ -46,7 +46,7 @@ export const unitApi = async(setStudent, subjId, subjName)=>{
         if(error.response?.status === 401){
             setStudent(null);
             removeStudentLocal();
-           return;
+            navigate('/login', {replace : true})
         }
      
         console.log(error.message);

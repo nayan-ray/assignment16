@@ -3,31 +3,38 @@ import Header from "../../components/header/Header"
 import Footer from "../../components/footer/Footer"
 import { unitApi } from '../../api/unitApi'
 import Loader from '../../components/loader/Loader'
-import { Navigate } from 'react-router-dom'
+import {  Link, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../context/AuthenContex'
 import { useSelector } from 'react-redux'
-
+import { useParams } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
+import slugify from 'slugify'
 
 const Unit = () => {
-   const subjects = useSelector((state) => state.unit.units);
+   const units = useSelector((state) => state.unit.units);
    const isLoading = useSelector((state) => state.loader.isLoading);
-   const {student, setStudent} = useContext(AuthContext)
+   const { setStudent} = useContext(AuthContext);
+   const navigate = useNavigate();
+   const {subjName} = useParams();
+   const {state} = useLocation();
+   const subjId = state || null;
+   
+   
+
  useEffect(()=>{
    
-       unitApi(setStudent);
+      unitApi(setStudent, navigate, subjId, subjName);
      
     
-  }, [setStudent])
+  }, [setStudent, navigate, subjId, subjName])
 
 
  if(isLoading){
     return <Loader />
  }
  
- if(!student){
-    return <Navigate to={'/login'} replace/>
 
- }
+ 
 
   return (
     <div className='dashboard-container'>
@@ -36,9 +43,10 @@ const Unit = () => {
           <div>
             <h2 className='text-center mb-4'>Units</h2>
             <ul className='text-center list'>
-              <li className='py-2 item'>Set and Function</li>
-              <li className='py-2 item'>Real Number</li>
-              <li className='py-2 item'>Exponent</li>
+              {units.length > 0 && !isLoading && units.map((unit)=>{
+                  return <li key={unit._id} className='py-2 item'><Link state={unit._id}>{unit.unitName}</Link></li>
+              })}
+             
             </ul>
           </div>
           <Footer />
