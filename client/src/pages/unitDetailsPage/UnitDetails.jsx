@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Header from '../../components/header/Header'
 import Footer from '../../components/footer/Footer'
 import "./unitDetails.css"
@@ -11,6 +11,7 @@ import { unitDetailsApi } from '../../api/unitDetailsApi'
 import slugify from 'slugify'
 
 const UnitDetails = () => {
+   const [unitIdToState, setUnitIdToState]= useState(null)
    const unitDetails = useSelector((state) => state.unitDetail.unitDetails);
    const isLoading = useSelector((state) => state.loader.isLoading);
    const { setStudent} = useContext(AuthContext);
@@ -20,14 +21,15 @@ const UnitDetails = () => {
    const unitId = state || null;
    
    
+   console.log(unitIdToState);
    
 
  useEffect(()=>{
    
-      unitDetailsApi(setStudent, navigate, unitId, unitName);
+      unitDetailsApi(setStudent, navigate, unitId, unitName, setUnitIdToState);
      
     
-  }, [setStudent, navigate, unitId, unitName])
+  }, [setStudent, navigate, unitId, unitName,setUnitIdToState])
 
 
  if(isLoading){
@@ -44,7 +46,7 @@ const UnitDetails = () => {
             <ul className='text-center list'>
                {unitDetails[0]?.notes[0]?.totalNotes > 0 && (
                   <li className='py-2 item'>
-                     <Link to={`/dashboard/${slugify(subjName)}/${slugify(unitName)}/note`}>
+                     <Link to={`/dashboard/${slugify(subjName)}/${slugify(unitName)}/note`} state={unitIdToState}>
                        <div className="details-wrapper">
                           <span className="unit-title">Note</span>
                           <span className='total-number'>{unitDetails[0].notes[0].totalNotes}</span>
@@ -57,7 +59,7 @@ const UnitDetails = () => {
               
                {unitDetails[0]?.questions[0]?.totalQuestions > 0 && (
                   <li className='py-2 item'>
-                    <Link to={`/dashboard/${slugify(subjName)}/${slugify(unitName)}/question`}>
+                    <Link to={`/dashboard/${slugify(subjName)}/${slugify(unitName)}/question`}state={unitIdToState}>
                        <div className="details-wrapper">
                         <span className="unit-title">Question</span>
                         <span className='total-number'>{unitDetails[0].questions[0].totalQuestions}</span>
@@ -68,7 +70,7 @@ const UnitDetails = () => {
 
              {unitDetails[0]?.quizzes[0]?.totalQuizzes > 0 && (
                   <li className='py-2 item'>
-                     <Link to={`/dashboard/${slugify(subjName)}/${slugify(unitName)}/quiz`}>
+                     <Link to={`/dashboard/${slugify(subjName)}/${slugify(unitName)}/quiz`} state={unitIdToState}>
                         <div className="details-wrapper">
                           <span className="unit-title">Quiz</span>
                           <span className='total-number'>{unitDetails[0].quizzes[0].totalQuizzes}</span>

@@ -7,7 +7,7 @@ import { removeStudentLocal } from "../helper/auth"
 import { setUnitDetails } from "../features/unitDetails/unitDetailSlice"
 
 
-export const unitDetailsApi = async(setStudent, navigate, unitId, unitName)=>{
+export const unitDetailsApi = async(setStudent, navigate, unitId, unitName, setUnitIdToState)=>{
     try {
         store.dispatch(showLoader())
         let unitDetailsId = unitId;
@@ -31,6 +31,8 @@ export const unitDetailsApi = async(setStudent, navigate, unitId, unitName)=>{
                 console.log(error.message);
              }
         }
+
+        setUnitIdToState(unitDetailsId);
         const response = await axios.get(`http://localhost:3000/api/v1/unit/details/${unitDetailsId}`, {
              headers : {
                 'Content-Type': 'application/json'
