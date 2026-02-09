@@ -21,7 +21,7 @@ const UnitDetails = () => {
    const unitId = state || null;
    
    
-   console.log(unitIdToState);
+   
    
 
  useEffect(()=>{
