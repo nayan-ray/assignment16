@@ -5,9 +5,10 @@ import "./unitDetails.css"
 import BreadCrumb from '../../components/breadCrumb/BreadCrumb'
 import { useSelector } from 'react-redux'
 import { AuthContext } from '../../context/AuthenContex'
-import { useLocation, useNavigate, useParams } from 'react-router-dom'
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import Loader from '../../components/loader/Loader'
 import { unitDetailsApi } from '../../api/unitDetailsApi'
+import slugify from 'slugify'
 
 const UnitDetails = () => {
    const unitDetails = useSelector((state) => state.unitDetail.unitDetails);
@@ -18,7 +19,7 @@ const UnitDetails = () => {
    const {state} = useLocation();
    const unitId = state || null;
    
-   console.log(unitDetails[0].questions[0].totalQuestions);
+   
    
 
  useEffect(()=>{
@@ -41,31 +42,38 @@ const UnitDetails = () => {
           <div>
             <h2 className='text-center mb-4'>Unit Details</h2>
             <ul className='text-center list'>
-               {unitDetails[0].notes[0].totalNotes > 0 && (
+               {unitDetails[0]?.notes[0]?.totalNotes > 0 && (
                   <li className='py-2 item'>
-                     <div className="details-wrapper">
-                        <span className="unit-title">Note</span>
-                        <span className='total-number'>{unitDetails[0].notes[0].totalNotes}</span>
-                     </div>
+                     <Link to={`/dashboard/${slugify(subjName)}/${slugify(unitName)}/note`}>
+                       <div className="details-wrapper">
+                          <span className="unit-title">Note</span>
+                          <span className='total-number'>{unitDetails[0].notes[0].totalNotes}</span>
+                       </div>
+                     </Link>
+                     
                   </li>
                )}
 
               
-               {unitDetails[0].questions[0].totalQuestions > 0 && (
+               {unitDetails[0]?.questions[0]?.totalQuestions > 0 && (
                   <li className='py-2 item'>
-                     <div className="details-wrapper">
+                    <Link to={`/dashboard/${slugify(subjName)}/${slugify(unitName)}/question`}>
+                       <div className="details-wrapper">
                         <span className="unit-title">Question</span>
                         <span className='total-number'>{unitDetails[0].questions[0].totalQuestions}</span>
-                     </div>
+                       </div>
+                     </Link>
                   </li>
                )}
 
-             {unitDetails[0].quizzes[0].totalQuizzes > 0 && (
+             {unitDetails[0]?.quizzes[0]?.totalQuizzes > 0 && (
                   <li className='py-2 item'>
-                     <div className="details-wrapper">
-                        <span className="unit-title">Quiz</span>
-                        <span className='total-number'>{unitDetails[0].quizzes[0].totalQuizzes}</span>
-                     </div>
+                     <Link to={`/dashboard/${slugify(subjName)}/${slugify(unitName)}/quiz`}>
+                        <div className="details-wrapper">
+                          <span className="unit-title">Quiz</span>
+                          <span className='total-number'>{unitDetails[0].quizzes[0].totalQuizzes}</span>
+                        </div>
+                     </Link>
                   </li>
                )}
             </ul>
