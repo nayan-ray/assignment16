@@ -29,8 +29,7 @@ const Accordion = ({  allowMultiple = false }) => {
       {questions.map((item, index) => {
         const isOpen = openIndexes.includes(index);
 
-        return (
-         <>
+        return (     
           <li className="numbering-gap" key={index}>
             <div className="number-text" >
                {`${index + 1})`}
@@ -68,13 +67,11 @@ const Accordion = ({  allowMultiple = false }) => {
               </div>
             </div>
 
+           </div>
+
           </div>
-
-             </div>
-           </li>
-         </>
-
-          
+      </li>
+     
         );
       })}
     </div>

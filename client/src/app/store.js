@@ -7,6 +7,7 @@ import unitReducer from "../features/unit/unitSlice"
 import unitDetailsReducer from '../features/unitDetails/unitDetailSlice'
 import noteReducer from "../features/note/noteSlice"
 import questionReducer from "../features/question/questionSlice"
+import quizReducer from "../features/quiz/quizSlice"
 
 export const store = configureStore({
   reducer: {
@@ -17,6 +18,7 @@ export const store = configureStore({
     unit : unitReducer,
     unitDetail : unitDetailsReducer,
     note : noteReducer,
-    question : questionReducer
+    question : questionReducer,
+    quiz : quizReducer
   },
 })

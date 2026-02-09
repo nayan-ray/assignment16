@@ -1,14 +1,35 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import "../../assets/global.css"
 import "./quiz.css"
 import Header from '../../components/header/Header'
 import BreadCrumb from '../../components/breadCrumb/BreadCrumb'
 import Footer from '../../components/footer/Footer'
+import { useSelector } from 'react-redux'
+import { AuthContext } from '../../context/AuthenContex'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
+import { quizApi } from '../../api/quizApi'
+import Loader from '../../components/loader/Loader'
 
 const Quiz = () => {
-const [openIndexes, setOpenIndexes] = useState([]);
+  const [openIndexes, setOpenIndexes] = useState([]);
+   const quizzes = useSelector((state) => state.quiz.quiz);
+   const isLoading = useSelector((state) => state.loader.isLoading);
+   const { setStudent} = useContext(AuthContext);
+   const navigate = useNavigate();
+   const { unitName} = useParams();
+   const {state} = useLocation();
+   const unitId = state || null;
+   const ansBox = ['A', 'B', 'C', 'D'];
+ 
+  
+ useEffect(()=>{
+   
+      quizApi(setStudent, navigate, unitId, unitName);
+     
+    
+  }, [setStudent, navigate, unitId, unitName])
 
-  const toggle = (index) => {
+   const toggle = (index) => {
     setOpenIndexes((prev) => {
     
         return prev.includes(index)
@@ -19,6 +40,11 @@ const [openIndexes, setOpenIndexes] = useState([]);
   };
 
 
+
+ if(isLoading){
+    return <Loader />
+ }
+
   return (
     <div className='common-wrapper'>
        <Header />
@@ -28,17 +54,17 @@ const [openIndexes, setOpenIndexes] = useState([]);
             <h2 className='text-center mb-4'>Quiz</h2>
             <ul className="list-container">
               {
-                [0, 1, 2, 3, 4].map((_, index)=>{
+                quizzes.length > 0 && !isLoading && quizzes.map((item, index)=>{
                    const isOpen = openIndexes.includes(index);
                   return  <li className="numbering-gap" key={index}>
                       <div className="number-text">{index + 1}.</div>
                       <div className="body-content">
-                        <p className="body-justify">This is the first model question. It contains a detailed explanation of the topic.</p>
+                        <p className="body-justify">{item?.quizTitle}</p>
                         <div className="option-box">
-                           <button className='option-item '>A) What is the purpose of this question</button>
-                           <button className='option-item'>B) What is the purpose of this question</button>
-                           <button className='option-item'>C) What is the purpose of this question</button>
-                           <button className='option-item'>D) What is the purpose of this question</button>
+                           <button className='option-item '>A) {item?.quizOptionA}</button>
+                           <button className='option-item'>B) {item?.quizOptionB}</button>
+                           <button className='option-item'>C) {item?.quizOptionC}</button>
+                           <button className='option-item'>D) {item?.quizOptionD}</button>
                         </div>
                          <div className="body-content">
             
@@ -61,7 +87,7 @@ const [openIndexes, setOpenIndexes] = useState([]);
               }}
             >
               <div className="accordion-content text-center font-weight-bold">
-                          A
+                         {ansBox[item?.quizAnsIn]}
               </div>
             </div>
 
