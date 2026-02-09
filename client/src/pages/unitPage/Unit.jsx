@@ -44,7 +44,7 @@ const Unit = () => {
             <h2 className='text-center mb-4'>Units</h2>
             <ul className='text-center list'>
               {units.length > 0 && !isLoading && units.map((unit)=>{
-                  return <li key={unit._id} className='py-2 item'><Link state={unit._id}>{unit.unitName}</Link></li>
+                  return <li key={unit._id} className='py-2 item'><Link to={`/dashboard/${slugify(subjName, {lower : true})}/${slugify(unit.unitName, {lower : true})}`} state={unit._id}>{unit.unitName}</Link></li>
               })}
              
             </ul>

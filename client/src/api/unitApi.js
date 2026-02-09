@@ -39,6 +39,7 @@ export const unitApi = async(setStudent, navigate, subjId, subjName)=>{
           
         if(response.status === 200 && response.data.success){
             store.dispatch(setUnits(response.data.payload))
+           
             
         }
               
