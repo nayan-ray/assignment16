@@ -78,6 +78,16 @@ const UnitDetails = () => {
                      </Link>
                   </li>
                )}
+              
+               <li className='py-2 item'>
+                     <Link to={`/dashboard/${slugify(subjName)}/${slugify(unitName)}/exam`} state={unitIdToState}>
+                        <div className="details-wrapper">
+                          <span className="unit-title text-center">Test yourself</span>
+                          <span className='total-number'>number</span>
+                        </div>
+                     </Link>
+               </li>
+
             </ul>
           </div>
           <Footer />

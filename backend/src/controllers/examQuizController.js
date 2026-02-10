@@ -202,7 +202,7 @@ const getQuizByUnitId = async (req, res, next)=>{
 
          return successResponse(res,{
             statusCode  : 200,
-            message  : 'Quiz deleted successfully',
+            message  : 'Quiz retrieved successfully',
             payload : quizzes
         })
         

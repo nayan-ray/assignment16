@@ -21,7 +21,7 @@ const TakeEmail = () => {
            },
             withCredentials : true
         })
-        alert("Student's password taken successfully. Please check your email to reset your password.")
+        alert("Student's email taken successfully. Please check your email to reset your password.")
        } catch (error) {
           console.log(error);        
           alert('Failed to send email. Please try again.')

@@ -83,3 +83,13 @@
     height: calc(100vh - 75px);
     overflow: hidden;
 }
+.submit-btn{
+    display: inline-block;
+    background-color: rebeccapurple;
+    color: white;
+    border: none;
+    outline: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    cursor: pointer;
+}

@@ -1,10 +1,36 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import "../../assets/global.css"
 import Header from '../../components/header/Header'
 import BreadCrumb from '../../components/breadCrumb/BreadCrumb'
 import Footer from '../../components/footer/Footer'
+import Loader from '../../components/loader/Loader'
+import { useSelector } from 'react-redux'
+import { AuthContext } from '../../context/AuthenContex'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
+import { examQuizApi } from '../../api/examQuizApi'
 
 const ExamQuiz = () => {
+     const quizzes = useSelector((state) => state.examQuiz.examQuiz);
+   const isLoading = useSelector((state) => state.loader.isLoading);
+   const { setStudent} = useContext(AuthContext);
+   const navigate = useNavigate();
+   const { unitName} = useParams();
+   const {state} = useLocation();
+   const unitId = state || null;
+   
+
+ useEffect(()=>{
+   
+      examQuizApi(setStudent, navigate, unitId, unitName);
+     
+    
+  }, [setStudent, navigate, unitId, unitName])
+
+
+ console.log(quizzes);
+ 
+
+
   const tickHandler = (e)=>{
          e.preventDefault();
          const parent = e.target.parentElement;
@@ -18,6 +44,12 @@ const ExamQuiz = () => {
          
 
   }
+
+
+  if(isLoading){
+    return <Loader />
+ }
+
   return (
     <div className='common-wrapper'>
        <Header />
@@ -27,16 +59,16 @@ const ExamQuiz = () => {
             <h2 className='text-center mb-4'>Model Question</h2>
             <ul className="list-container">
               {
-                [0, 1, 2, 3, 4].map((_, index)=>(
+                quizzes.length > 0 && !isLoading && quizzes.map((quiz, index)=>(
                      <li className="numbering-gap" key={index}>
                       <div className="number-text">{index + 1}.</div>
                       <div className="body-content">
-                        <p className="body-justify">This is the first model question. It contains a detailed explanation of the topic.</p>
+                        <p className="body-justify">{quiz.quizTitle}</p>
                         <div className="option-box">
-                           <button className='option-item ' onClick={(e)=> tickHandler(e)}>A) What is the purpose of this question</button>
-                           <button className='option-item' onClick={(e)=> tickHandler(e)}>B) What is the purpose of this question</button>
-                           <button className='option-item' onClick={(e)=> tickHandler(e)}>C) What is the purpose of this question</button>
-                           <button className='option-item' onClick={(e)=> tickHandler(e)}>D) What is the purpose of this question</button>
+                           <button className='option-item ' onClick={(e)=> tickHandler(e)}>A) {quiz.quizOptionA}</button>
+                           <button className='option-item' onClick={(e)=> tickHandler(e)}>B) {quiz.quizOptionB}</button>
+                           <button className='option-item' onClick={(e)=> tickHandler(e)}>C) {quiz.quizOptionC}</button>
+                           <button className='option-item' onClick={(e)=> tickHandler(e)}>D) {quiz.quizOptionD}</button>
                         </div>
                        
                     </div>
@@ -48,6 +80,7 @@ const ExamQuiz = () => {
 
                 
         </ul>
+         <button className='submit-btn'>submit</button>
       </div> 
 
        <Footer />
