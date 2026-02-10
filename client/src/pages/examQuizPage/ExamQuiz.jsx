@@ -4,19 +4,26 @@ import Header from '../../components/header/Header'
 import BreadCrumb from '../../components/breadCrumb/BreadCrumb'
 import Footer from '../../components/footer/Footer'
 import Loader from '../../components/loader/Loader'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { AuthContext } from '../../context/AuthenContex'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { examQuizApi } from '../../api/examQuizApi'
+import { upsertItem } from '../../features/testQuiz/testQuizSlice'
+import axios from 'axios'
+import { hideLoader, showLoader } from '../../features/loader/loaderSlice'
 
 const ExamQuiz = () => {
-     const quizzes = useSelector((state) => state.examQuiz.examQuiz);
+    const quizzes = useSelector((state) => state.examQuiz.examQuiz);
    const isLoading = useSelector((state) => state.loader.isLoading);
+   const submitAnswer = useSelector((state)=> state.testQuiz.list);
+   const dispatch = useDispatch();
    const { setStudent} = useContext(AuthContext);
    const navigate = useNavigate();
    const { unitName} = useParams();
    const {state} = useLocation();
    const unitId = state || null;
+   
+   console.log(submitAnswer);
    
 
  useEffect(()=>{
@@ -27,11 +34,11 @@ const ExamQuiz = () => {
   }, [setStudent, navigate, unitId, unitName])
 
 
- console.log(quizzes);
+ 
  
 
 
-  const tickHandler = (e)=>{
+  const tickHandler = (e, item)=>{
          e.preventDefault();
          const parent = e.target.parentElement;
          const kids = parent.children;
@@ -42,13 +49,54 @@ const ExamQuiz = () => {
          })
         e.target.classList.add("tick")
          
-
+      dispatch(
+      upsertItem({
+        newItem: item,
+        key: "quizId"
+      })
+    );
   }
 
 
   if(isLoading){
     return <Loader />
  }
+
+const testSubmitHandler = async(e)=>{
+  e.preventDefault();
+ try {
+     dispatch(showLoader())
+     const response = await axios.post(`http://localhost:3000/api/v1/exam-quiz/submit`, {anserList : submitAnswer, unitId}, {
+              headers : {
+                 'Content-Type': 'application/json'
+                },
+              withCredentials : true
+           })
+           
+         if(response.status === 200 && response.data.success){
+             
+             alert(`you have got ${response.data.payload.correct}/${response.data.payload.total}`);
+             
+             
+             
+         }
+               
+     } catch (error) {
+         if(error.response?.status === 401){
+             setStudent(null);
+             removeStudentLocal();
+             navigate('/login', {replace : true})
+         }
+      
+         console.log(error.message);
+         
+        
+     }finally{
+         dispatch(hideLoader())
+     }
+
+
+}
 
   return (
     <div className='common-wrapper'>
@@ -65,10 +113,10 @@ const ExamQuiz = () => {
                       <div className="body-content">
                         <p className="body-justify">{quiz.quizTitle}</p>
                         <div className="option-box">
-                           <button className='option-item ' onClick={(e)=> tickHandler(e)}>A) {quiz.quizOptionA}</button>
-                           <button className='option-item' onClick={(e)=> tickHandler(e)}>B) {quiz.quizOptionB}</button>
-                           <button className='option-item' onClick={(e)=> tickHandler(e)}>C) {quiz.quizOptionC}</button>
-                           <button className='option-item' onClick={(e)=> tickHandler(e)}>D) {quiz.quizOptionD}</button>
+                           <button className='option-item ' onClick={(e)=> tickHandler(e, {quizId : quiz._id, quizAnsIn : 0})}>A) {quiz.quizOptionA}</button>
+                           <button className='option-item' onClick={(e)=> tickHandler(e, {quizId : quiz._id, quizAnsIn : 1})}>B) {quiz.quizOptionB}</button>
+                           <button className='option-item' onClick={(e)=> tickHandler(e, {quizId : quiz._id, quizAnsIn : 2})}>C) {quiz.quizOptionC}</button>
+                           <button className='option-item' onClick={(e)=> tickHandler(e, {quizId : quiz._id, quizAnsIn : 3})}>D) {quiz.quizOptionD}</button>
                         </div>
                        
                     </div>
@@ -80,7 +128,7 @@ const ExamQuiz = () => {
 
                 
         </ul>
-         <button className='submit-btn'>submit</button>
+         <button className='submit-btn' onClick={testSubmitHandler}>submit</button>
       </div> 
 
        <Footer />

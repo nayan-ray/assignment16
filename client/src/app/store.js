@@ -9,6 +9,7 @@ import noteReducer from "../features/note/noteSlice"
 import questionReducer from "../features/question/questionSlice"
 import quizReducer from "../features/quiz/quizSlice"
 import examQuizReducer from "../features/examQuiz/examQuizSlice"
+import testQuizReducer from "../features/testQuiz/testQuizSlice"
 
 export const store = configureStore({
   reducer: {
@@ -21,6 +22,7 @@ export const store = configureStore({
     note : noteReducer,
     question : questionReducer,
     quiz : quizReducer,
-    examQuiz : examQuizReducer
+    examQuiz : examQuizReducer,
+    testQuiz : testQuizReducer
   },
 })
