@@ -48,6 +48,7 @@ const Login = () => {
            
             <button type="submit">Log in</button>
             <p>Not registered yet? please <Link to={"/register"}>Sign Up</Link> </p>
+            <p><Link to={"/check-email"}>Forgot Password ?</Link></p>
            </form>
        </div>
     </div>

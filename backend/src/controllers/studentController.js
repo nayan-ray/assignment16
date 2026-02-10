@@ -335,7 +335,7 @@ const checkEmail = async (req, res, next)=>{
                        <p>You want to reset password?</p>
                      
                       <p>Please click here to
-                         <a href='http://localhost:3000/api/user/reset-password/${token}'>
+                         <a href='http://localhost:5173/reset-password/${token}'>
                           reset your password
                         </a>
                        </p>
