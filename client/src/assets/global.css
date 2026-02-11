@@ -103,3 +103,10 @@
 .submit-btn.activate{
    background-color: #3d7935;
 }
+
+.details-wrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 20px;
+}

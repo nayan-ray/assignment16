@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Header from '../../components/header/Header'
 import Footer from '../../components/footer/Footer'
-import "./unitDetails.css"
 import BreadCrumb from '../../components/breadCrumb/BreadCrumb'
 import { useSelector } from 'react-redux'
 import { AuthContext } from '../../context/AuthenContex'

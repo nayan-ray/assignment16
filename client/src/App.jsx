@@ -59,7 +59,7 @@ function App() {
          <Route path='/profile' element={<ProtectedRoutes><Profile /></ProtectedRoutes>}/>
          <Route path='/check-email' element={<TakeEmail />}/>
          <Route path='/reset-password/:token' element={<ResetPassword />}/>
-         <Route path='/result' element={<ProtectedRoutes><Result /></ProtectedRoutes>}/>
+         <Route path='/score' element={<ProtectedRoutes><Result /></ProtectedRoutes>}/>
         
          <Route path='/active-account/:token' element={<ActiveAccount />}/>
          <Route path='*' element={<NoPageFound />}/>

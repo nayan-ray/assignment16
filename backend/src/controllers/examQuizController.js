@@ -312,10 +312,12 @@ const getResultByUnitAndUser = async (req, res, next)=>{
 }
 
 const resultBySubj = async (req, res, next)=>{
+    const studentId = req.student.id;
     try {
         const result = await Result.aggregate([
+            {$match : {studentId : studentId}},
             {$group :{
-                _id : {subjName : "$subjName", studentId : "$studentId"},
+                _id : {subjName : "$subjName"},
                 totalCorrect : {$sum : "$correct"},
                 totalNumber : {$sum : "$total"}
             }}
@@ -323,7 +325,7 @@ const resultBySubj = async (req, res, next)=>{
 
          return successResponse(res,{
             statusCode  : 200,
-            message  : 'result submit successfully',
+            message  : 'result retrieved successfully',
             payload : result
         })
         
