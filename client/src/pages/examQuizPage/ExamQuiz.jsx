@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { AuthContext } from '../../context/AuthenContex'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { examQuizApi } from '../../api/examQuizApi'
-import { upsertItem } from '../../features/testQuiz/testQuizSlice'
+import { clearList, upsertItem } from '../../features/testQuiz/testQuizSlice'
 import axios from 'axios'
 import { hideLoader, showLoader } from '../../features/loader/loaderSlice'
 
@@ -19,7 +19,7 @@ const ExamQuiz = () => {
    const dispatch = useDispatch();
    const { setStudent} = useContext(AuthContext);
    const navigate = useNavigate();
-   const { unitName} = useParams();
+   const {subjName, unitName} = useParams();
    const {state} = useLocation();
    const unitId = state || null;
    
@@ -58,9 +58,7 @@ const ExamQuiz = () => {
   }
 
 
-  if(isLoading){
-    return <Loader />
- }
+
 
 const testSubmitHandler = async(e)=>{
   e.preventDefault();
@@ -77,7 +75,7 @@ const testSubmitHandler = async(e)=>{
              
              alert(`you have got ${response.data.payload.correct}/${response.data.payload.total}`);
              
-             
+             navigate(`/dashboard/${subjName}/${unitName}`, {replace : true, state : unitId})
              
          }
                
@@ -93,10 +91,16 @@ const testSubmitHandler = async(e)=>{
         
      }finally{
          dispatch(hideLoader())
+         dispatch(clearList())
      }
 
 
 }
+
+
+ if(isLoading){
+    return <Loader />
+ }
 
   return (
     <div className='common-wrapper'>
@@ -128,7 +132,13 @@ const testSubmitHandler = async(e)=>{
 
                 
         </ul>
-         <button className='submit-btn' onClick={testSubmitHandler}>submit</button>
+        <div className="box-container">
+            <span>{`Answered : ${submitAnswer.length}/${quizzes.length}`}</span>
+        </div>
+        <div className="box-container">
+           <button className={submitAnswer.length === quizzes.length ? 'submit-btn activate' : 'submit-btn'} onClick={testSubmitHandler} disabled ={submitAnswer.length !== quizzes.length}>submit</button>
+        </div>
+        
       </div> 
 
        <Footer />

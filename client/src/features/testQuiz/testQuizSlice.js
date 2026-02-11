@@ -23,9 +23,16 @@ const itemsSlice = createSlice({
           ...newItem
         };
       }
-    }
+    },
+   clearList : (state) => {
+      state.list  = [];
+   }
+
+
+
   }
+
 });
 
-export const { upsertItem } = itemsSlice.actions;
+export const { upsertItem, clearList } = itemsSlice.actions;
 export default itemsSlice.reducer;

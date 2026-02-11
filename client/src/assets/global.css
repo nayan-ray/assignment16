@@ -85,11 +85,21 @@
 }
 .submit-btn{
     display: inline-block;
-    background-color: rebeccapurple;
+    background-color: gray;
     color: white;
     border: none;
     outline: none;
     padding: 12px 24px;
     font-size: 16px;
     cursor: pointer;
+}
+.box-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+.submit-btn.activate{
+   background-color: #3d7935;
 }
