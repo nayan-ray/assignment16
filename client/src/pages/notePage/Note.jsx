@@ -50,7 +50,7 @@ const Note = () => {
                     </li>
           })}
            
-          
+          {note.length === 0 && !isLoading && <li className='text-center'>No notes available</li>}
         </ul>
       </div>
       <Footer />

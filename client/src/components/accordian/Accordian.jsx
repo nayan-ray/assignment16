@@ -26,7 +26,7 @@ const Accordion = ({  allowMultiple = false }) => {
     <div className="list-container">
 
 
-      {questions.map((item, index) => {
+      { questions.length > 0 && !isLoading && questions.map((item, index) => {
         const isOpen = openIndexes.includes(index);
 
         return (     
@@ -74,6 +74,9 @@ const Accordion = ({  allowMultiple = false }) => {
      
         );
       })}
+
+      {questions.length === 0 && !isLoading && <p className='text-center'>No questions available</p> }
+      
     </div>
   );
 };

@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 import slugify from 'slugify'
+import BreadCrumb from '../../components/breadCrumb/BreadCrumb'
 
 const Unit = () => {
    const units = useSelector((state) => state.unit.units);
@@ -40,13 +41,16 @@ const Unit = () => {
     <div className='dashboard-container'>
       <div className="dashboard-wrapper">
           <Header />
+          <BreadCrumb />
           <div>
             <h2 className='text-center mb-4'>Units</h2>
             <ul className='text-center list'>
               {units.length > 0 && !isLoading && units.map((unit)=>{
                   return <li key={unit._id} className='py-2 item'><Link to={`/dashboard/${slugify(subjName, {lower : true})}/${slugify(unit.unitName, {lower : true})}`} state={unit._id}>{unit.unitName}</Link></li>
               })}
-             
+             {units.length === 0 && !isLoading && 
+                  ( <li key="no-units" className='py-2 item'>No units available</li>)
+              }
             </ul>
           </div>
           <Footer />

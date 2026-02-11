@@ -23,8 +23,6 @@ const ExamQuiz = () => {
    const {state} = useLocation();
    const unitId = state || null;
    
-   console.log(submitAnswer);
-   
 
  useEffect(()=>{
    
@@ -108,7 +106,7 @@ const testSubmitHandler = async(e)=>{
        <BreadCrumb />
        
       <div>
-            <h2 className='text-center mb-4'>Model Question</h2>
+            <h2 className='text-center mb-4'>Exam Quiz</h2>
             <ul className="list-container">
               {
                 quizzes.length > 0 && !isLoading && quizzes.map((quiz, index)=>(
@@ -125,20 +123,23 @@ const testSubmitHandler = async(e)=>{
                        
                     </div>
                
-              </li>
+                  </li>
                 ))
               }
               
 
                 
         </ul>
-        <div className="box-container">
+        {quizzes.length === 0 && !isLoading ? <p className='text-center'>No quizzes available</p> :
+          <>
+          <div className="box-container">
             <span>{`Answered : ${submitAnswer.length}/${quizzes.length}`}</span>
-        </div>
-        <div className="box-container">
-           <button className={submitAnswer.length === quizzes.length ? 'submit-btn activate' : 'submit-btn'} onClick={testSubmitHandler} disabled ={submitAnswer.length !== quizzes.length}>submit</button>
-        </div>
-        
+          </div>
+          <div className="box-container">
+            <button className={submitAnswer.length === quizzes.length ? 'submit-btn activate' : 'submit-btn'} onClick={testSubmitHandler} disabled ={submitAnswer.length !== quizzes.length}>submit</button>
+          </div>
+        </>
+       }
       </div> 
 
        <Footer />

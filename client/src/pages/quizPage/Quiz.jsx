@@ -100,7 +100,7 @@ const Quiz = () => {
                 })
               }
               
-
+        {quizzes.length === 0 && !isLoading && <li className='text-center'>No quizzes available</li> }
                 
         </ul>
       </div> 
