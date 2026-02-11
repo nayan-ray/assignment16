@@ -19,7 +19,6 @@ export const resultApi = async(setStudent, navigate)=>{
                },
              withCredentials : true
           })
-          console.log(response.data);
           
         if(response.status === 200 && response.data.success){
             store.dispatch(setResult(response.data.payload))

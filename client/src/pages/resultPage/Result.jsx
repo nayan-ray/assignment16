@@ -36,12 +36,16 @@ const Result = () => {
              <div>
                 <h2 className='text-center mb-4'>Your Results</h2>
                  <ul className='text-center list'>
-                    <li className='py-2 item'>                  
-                       <div className="details-wrapper">
-                          <span className="unit-title">Note</span>
-                          <span className='total-number'>20</span>
-                       </div>                   
-                  </li>
+                  {result.length > 0 && !isLoading ? result.map((item, index)=>{
+                     return <li key={index} className='py-2 item'>                  
+                              <div className="details-wrapper">
+                                <span className="unit-title">{item?._id?.subjName}</span>
+                                <span className='total-number'>{item.totalCorrect / item.totalNumber * 100}%</span>
+                              </div>                   
+                           </li>
+                  }) : <p>No result found</p>
+               }
+                    
                  </ul>
              </div>
            <Footer />

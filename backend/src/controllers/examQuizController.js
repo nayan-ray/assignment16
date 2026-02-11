@@ -196,7 +196,7 @@ const deleteExamQuiz = async (req, res, next) => {
 
 const getQuizByUnitId = async (req, res, next)=>{
     const id = req.params.id;
-
+    
     try {
         const quizzes = await ExamQuiz.find({unitId : id});
 
@@ -313,9 +313,10 @@ const getResultByUnitAndUser = async (req, res, next)=>{
 
 const resultBySubj = async (req, res, next)=>{
     const studentId = req.student.id;
+     const stObj = new mongoose.Types.ObjectId(studentId);
     try {
         const result = await Result.aggregate([
-            {$match : {studentId : studentId}},
+            {$match : {studentId : stObj}},
             {$group :{
                 _id : {subjName : "$subjName"},
                 totalCorrect : {$sum : "$correct"},
