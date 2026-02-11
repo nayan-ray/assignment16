@@ -14,7 +14,7 @@ const Result = () => {
    const isLoading = useSelector((state) => state.loader.isLoading);
    const { setStudent} = useContext(AuthContext);
    const navigate = useNavigate();
-   console.log(result);
+  
    
 
  useEffect(()=>{
