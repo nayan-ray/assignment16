@@ -13,14 +13,13 @@ import slugify from 'slugify'
 const UnitDetails = () => {
    const [unitIdToState, setUnitIdToState]= useState(null)
    const unitDetails = useSelector((state) => state.unitDetail.unitDetails);
+   const unitResults = useSelector((state) => state.unitDetail.unitResults);
    const isLoading = useSelector((state) => state.loader.isLoading);
    const { setStudent} = useContext(AuthContext);
    const navigate = useNavigate();
    const {subjName, unitName} = useParams();
    const {state} = useLocation();
    const unitId = state || null;
-   
-   
    
    
 
@@ -82,8 +81,8 @@ const UnitDetails = () => {
                <li className='py-2 item'>
                      <Link to={`/dashboard/${slugify(subjName)}/${slugify(unitName)}/exam`} state={unitIdToState}>
                         <div className="details-wrapper">
-                          <span className="unit-title text-center">Test yourself</span>
-                          <span className='total-number'>number</span>
+                          <span className="unit-title text-center">{unitResults ? "Retest your knowledge" : "Take Exam"}</span>
+                          <span className='total-number'>{unitResults ? `Score : ${unitResults?.correct}/${unitResults?.total}` : "No Score Yet"}</span>
                         </div>
                      </Link>
                </li>

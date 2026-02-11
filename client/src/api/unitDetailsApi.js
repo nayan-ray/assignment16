@@ -4,7 +4,7 @@ import { hideLoader, showLoader } from "../features/loader/loaderSlice"
 
 import { removeStudentLocal } from "../helper/auth"
 
-import { setUnitDetails } from "../features/unitDetails/unitDetailSlice"
+import { setUnitDetails, setUnitResults } from "../features/unitDetails/unitDetailSlice"
 
 
 export const unitDetailsApi = async(setStudent, navigate, unitId, unitName, setUnitIdToState)=>{
@@ -45,6 +45,20 @@ export const unitDetailsApi = async(setStudent, navigate, unitId, unitName, setU
            
             
         }
+         
+        const result = await axios.get(`http://localhost:3000/api/v1/exam-quiz/result-by-unit/${unitDetailsId}`, {
+             headers : {
+                'Content-Type': 'application/json'
+               },
+             withCredentials : true
+          })
+          
+           if(result.status === 200 && result.data.success){
+            store.dispatch(setUnitResults(result.data.payload))     
+        }
+
+        //result-by-unit/:id
+
               
     } catch (error) {
         if(error.response?.status === 401){
