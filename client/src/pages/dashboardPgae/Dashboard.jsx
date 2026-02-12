@@ -1,27 +1,37 @@
-import React, { useContext } from 'react'
+import React, { useCallback, useContext } from 'react'
 import slugify from 'slugify'
 import Header from '../../components/header/Header'
 import "./dashboard.css"
 import Footer from '../../components/footer/Footer'
 import { Link, Navigate, useNavigate} from 'react-router-dom'
 import { useEffect } from 'react'
-import { dashboardApi } from '../../api/dashboard'
-import { useSelector } from 'react-redux'
+
+import {  useSelector } from 'react-redux'
 import Loader from '../../components/loader/Loader'
 import { AuthContext } from '../../context/AuthenContex'
+import { dashboardApi } from '../../api/dashboard'
+
+
+
 
 const Dashboard = () => {
    const subjects = useSelector((state) => state.dashboard.subjects);
    const isLoading = useSelector((state) => state.loader.isLoading);
   const { setStudent} = useContext(AuthContext);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
+
+
+
 
   useEffect(()=>{
-   
-       dashboardApi(setStudent, navigate);
+      if(subjects.length === 0 || !subjects){
+         dashboardApi(setStudent, navigate)
+      }
+      
      
     
-  }, [setStudent, navigate])
+  }, [setStudent, navigate, dashboardApi, subjects.length, subjects])
 
 
  if(isLoading){
