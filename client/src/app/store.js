@@ -11,6 +11,7 @@ import quizReducer from "../features/quiz/quizSlice"
 import examQuizReducer from "../features/examQuiz/examQuizSlice"
 import testQuizReducer from "../features/testQuiz/testQuizSlice"
 import resultReducer from "../features/result/resultSlice"
+import profileReducer from "../features/update/userUpdateSlice"
 
 export const store = configureStore({
   reducer: {
@@ -25,6 +26,7 @@ export const store = configureStore({
     quiz : quizReducer,
     examQuiz : examQuizReducer,
     testQuiz : testQuizReducer,
-    result : resultReducer
+    result : resultReducer,
+    profile : profileReducer
   },
 })

@@ -165,7 +165,7 @@ const getUserById = async(req, res,next) => {
         
         
 
-        const  id = req.params.id;
+        const  studentId = req?.student?.id;
      
 
         //options  to exclude password from response
@@ -175,8 +175,25 @@ const getUserById = async(req, res,next) => {
         //retrieve  user by id
 
 
-        const user = await findUserById(id, Student, options);
-
+        await  findUserById(studentId, Student, options);
+         const [user] = await Student.aggregate([
+            {$match : {_id : new mongoose.Types.ObjectId(studentId)}},
+            {$lookup : {
+                from : 'classes',
+                localField : 'classId',
+                foreignField : '_id',
+                as : 'className'
+            }},
+            {$unwind : '$className'},
+            {$project : {
+                name : 1,
+                email : 1,
+                phone : 1,
+                address : 1,
+                image : 1,
+                className : '$className.className'
+            }}
+         ]) 
          //send  response with user details
 
 
@@ -235,11 +252,11 @@ const updateUser = async(req, res,next) => {
     try {
        //accept id
      
-        const  id = req.params.id;
+        const  studentId = req?.student?.id;
 
       //check user with this id
 
-        const user = await findUserById(id, Student);
+      const user =  await findUserById(studentId, Student);
 
       //update options
 
@@ -272,7 +289,7 @@ const updateUser = async(req, res,next) => {
        if(image){
          
           updateObject.image = `${req.protocol}://${req.get("host")}/uploads/${image?.filename}`;
-        //   user.image && deleteImageByPath(user.image);
+           user.image && deleteImageByPath(user.image);
         }
       
         try {

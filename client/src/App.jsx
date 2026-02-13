@@ -57,6 +57,7 @@ function App() {
          <Route path='/dashboard/:subjName/:unitName/quiz' element={<ProtectedRoutes><Quiz /></ProtectedRoutes>}/>
          <Route path='/dashboard/:subjName/:unitName/exam' element={<ProtectedRoutes><ExamQuiz /></ProtectedRoutes>}/>
          <Route path='/profile' element={<ProtectedRoutes><Profile /></ProtectedRoutes>}/>
+         <Route path='/edit-profile' element={<ProtectedRoutes><Profile /></ProtectedRoutes>}/>
          <Route path='/check-email' element={<TakeEmail />}/>
          <Route path='/reset-password/:token' element={<ResetPassword />}/>
          <Route path='/score' element={<ProtectedRoutes><Result /></ProtectedRoutes>}/>

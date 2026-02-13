@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.post("/register", userRegister );
 router.post("/activation-student", activeUserProcess);
-router.get("/:id", isLoggedIn, getUserById);
+router.get("/info", isLoggedIn, getUserById);
 router.delete("/:id", isLoggedIn, deleteUserById);
 router.put("/:id", isLoggedIn, upload.single("uploadFile"), updateUser);
 router.post("/email-verification", checkEmail)
