@@ -18,6 +18,7 @@ import TakeEmail from './pages/takeEmailPage/TakeEmail';
 import ResetPassword from './pages/ResetPasswordPage/ResetPassword';
 import PublicRoutes from './routes/PublicRoutes';
 import ProtectedRoutes from './routes/ProtectedRoutes';
+import EditProfile from './pages/editProfilePage/EditProfile';
 
 
 
@@ -57,7 +58,7 @@ function App() {
          <Route path='/dashboard/:subjName/:unitName/quiz' element={<ProtectedRoutes><Quiz /></ProtectedRoutes>}/>
          <Route path='/dashboard/:subjName/:unitName/exam' element={<ProtectedRoutes><ExamQuiz /></ProtectedRoutes>}/>
          <Route path='/profile' element={<ProtectedRoutes><Profile /></ProtectedRoutes>}/>
-         <Route path='/edit-profile' element={<ProtectedRoutes><Profile /></ProtectedRoutes>}/>
+         <Route path='/edit-profile' element={<ProtectedRoutes><EditProfile /></ProtectedRoutes>}/>
          <Route path='/check-email' element={<TakeEmail />}/>
          <Route path='/reset-password/:token' element={<ResetPassword />}/>
          <Route path='/score' element={<ProtectedRoutes><Result /></ProtectedRoutes>}/>

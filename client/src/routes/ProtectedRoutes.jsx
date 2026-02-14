@@ -1,11 +1,12 @@
 import { useContext } from "react";
 import { Navigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthenContex";
+import Loader from "../components/loader/Loader";
 
 const ProtectedRoutes = ({children}) => {
     const {student, loading} = useContext(AuthContext)
    if(loading){
-    return <p>Loading...</p>
+    return <Loader />
    }
 
     if(!student){

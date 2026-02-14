@@ -9,7 +9,7 @@ router.post("/register", userRegister );
 router.post("/activation-student", activeUserProcess);
 router.get("/info", isLoggedIn, getUserById);
 router.delete("/:id", isLoggedIn, deleteUserById);
-router.put("/:id", isLoggedIn, upload.single("uploadFile"), updateUser);
+router.put("/update", isLoggedIn, upload.single("uploadFile"), updateUser);
 router.post("/email-verification", checkEmail)
 router.post("/reset-password", resetPassword)
 

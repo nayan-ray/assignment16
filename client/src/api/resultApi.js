@@ -25,7 +25,7 @@ export const resultApi = async(setStudent, navigate)=>{
            
             
         }
-        alert(response.data.message)
+        
               
     } catch (error) {
         if(error.response?.status === 401){

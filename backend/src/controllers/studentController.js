@@ -251,7 +251,8 @@ const deleteUserById= async(req, res, next) => {
 const updateUser = async(req, res,next) => {
     try {
        //accept id
-     
+       console.log(req.body);
+       
         const  studentId = req?.student?.id;
 
       //check user with this id
@@ -303,7 +304,7 @@ const updateUser = async(req, res,next) => {
 
       
        
-        const  userUpdated = await Student.findByIdAndUpdate(id,  updateObject, updateOptions);
+        const  userUpdated = await Student.findByIdAndUpdate(studentId,  updateObject, updateOptions);
            
        //checked  if user is updated
 
@@ -317,9 +318,10 @@ const updateUser = async(req, res,next) => {
         return successResponse(res,{
             statusCode  : 200,
             message  : 'user retrieved successfully',
-            payload : {
-                url : `${req.protocol}://${req.get("host")}/uploads/${userUpdated.image}`
-            }
+            // payload : {
+            //     url : `${req.protocol}://${req.get("host")}/uploads/${userUpdated.image}`
+            // }
+            
         })
 
     } catch (error) {

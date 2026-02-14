@@ -78,7 +78,8 @@ const Profile = () => {
                 </> 
                 :
                  <li>No profile data available</li>}
-                 
+
+              
                </ul>
 
            </div>

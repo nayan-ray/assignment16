@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 
 const Accordion = ({  allowMultiple = false }) => {
   const questions = useSelector((state) => state.question.question);
+  const isLoading = useSelector((state) => state.loader.isLoading);
   const [openIndexes, setOpenIndexes] = useState([]);
    
    
