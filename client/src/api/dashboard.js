@@ -4,12 +4,14 @@ import { hideLoader, showLoader } from "../features/loader/loaderSlice"
 import { setSubjects } from "../features/dashboard/dashboardSlice"
 import { removeStudentLocal } from "../helper/auth"
 import { replace } from "react-router-dom"
+import { baseURL } from "./baseUrl"
 
 
 export const dashboardApi = async(setStudent, navigate)=>{
     try {
+        
         store.dispatch(showLoader())
-        const response = await axios.get('http://localhost:3000/api/v1/subject/all-subjects', {
+        const response = await axios.get(`${baseURL}/api/v1/subject/all-subjects`, {
              headers : {
                 'Content-Type': 'application/json'
            },

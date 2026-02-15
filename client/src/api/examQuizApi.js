@@ -7,15 +7,17 @@ import { removeStudentLocal } from "../helper/auth"
 
 
 import { setExamQuiz } from "../features/examQuiz/examQuizSlice"
+import { baseURL } from "./baseUrl"
 
 
 export const examQuizApi = async(setStudent, navigate, unitId, unitName)=>{
+  
     try {
         store.dispatch(showLoader())
         let unitDetailsId = unitId;
         if(!unitDetailsId){
              try {
-                   const response = await axios.get(`http://localhost:3000/api/v1/unit/id-by-name/${unitName}`, {
+                   const response = await axios.get(`${baseURL}/api/v1/unit/id-by-name/${unitName}`, {
                 headers : {
                    'Content-Type': 'application/json'
                },
@@ -34,7 +36,7 @@ export const examQuizApi = async(setStudent, navigate, unitId, unitName)=>{
              }
         }
 
-        const response = await axios.get(`http://localhost:3000/api/v1/exam-quiz/get-quiz-unit/${unitDetailsId}`, {
+        const response = await axios.get(`${baseURL}/api/v1/exam-quiz/get-quiz-unit/${unitDetailsId}`, {
              headers : {
                 'Content-Type': 'application/json'
                },

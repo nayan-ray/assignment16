@@ -3,6 +3,7 @@ import {store} from "../app/store"
 import { hideLoader, showLoader } from "../features/loader/loaderSlice"
 import { removeStudentLocal } from "../helper/auth"
 import { setQuiz } from "../features/quiz/quizSlice"
+import { baseURL } from "./baseUrl"
 
 
 export const quizApi = async(setStudent, navigate, unitId, unitName)=>{
@@ -11,7 +12,7 @@ export const quizApi = async(setStudent, navigate, unitId, unitName)=>{
         let unitDetailsId = unitId;
         if(!unitDetailsId){
              try {
-                   const response = await axios.get(`http://localhost:3000/api/v1/unit/id-by-name/${unitName}`, {
+                   const response = await axios.get(`${baseURL}/api/v1/unit/id-by-name/${unitName}`, {
                 headers : {
                    'Content-Type': 'application/json'
                },
@@ -30,7 +31,7 @@ export const quizApi = async(setStudent, navigate, unitId, unitName)=>{
              }
         }
 
-        const response = await axios.get(`http://localhost:3000/api/v1/quiz/get-quiz-unit/${unitDetailsId}`, {
+        const response = await axios.get(`${baseURL}/api/v1/quiz/get-quiz-unit/${unitDetailsId}`, {
              headers : {
                 'Content-Type': 'application/json'
                },

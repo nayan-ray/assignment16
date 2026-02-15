@@ -4,6 +4,7 @@ import { hideLoader, showLoader } from "../features/loader/loaderSlice"
 
 import { removeStudentLocal } from "../helper/auth"
 import { setUnits } from "../features/unit/unitSlice"
+import { baseURL } from "./baseUrl"
 
 
 export const unitApi = async(setStudent, navigate, subjId, subjName)=>{
@@ -12,7 +13,7 @@ export const unitApi = async(setStudent, navigate, subjId, subjName)=>{
         let subjectId = subjId;
         if(!subjectId){
              try {
-                   const response = await axios.get(`http://localhost:3000/api/v1/subject/get-subj-id/${subjName}`, {
+                   const response = await axios.get(`${baseURL}/api/v1/subject/get-subj-id/${subjName}`, {
                 headers : {
                    'Content-Type': 'application/json'
                },
@@ -30,7 +31,7 @@ export const unitApi = async(setStudent, navigate, subjId, subjName)=>{
                 console.log(error.message);
              }
         }
-        const response = await axios.get(`http://localhost:3000/api/v1/unit/subject/${subjectId}`, {
+        const response = await axios.get(`${baseURL}/api/v1/unit/subject/${subjectId}`, {
              headers : {
                 'Content-Type': 'application/json'
                },

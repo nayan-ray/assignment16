@@ -2,6 +2,7 @@ import axios from "axios"
 import {store} from "../app/store"
 import { hideLoader, showLoader } from "../features/loader/loaderSlice"
 import { removeStudentLocal, setStudentLocal } from "../helper/auth"
+import { baseURL } from "./baseUrl"
 
 export const authApi = async(student)=>{
     try {
@@ -50,7 +51,7 @@ export const activateAccountApi = async(token)=>{
 export const loginApi = async(student)=>{
      try {
         store.dispatch(showLoader())
-       const response =  await axios.post('http://localhost:3000/api/v1/auth/login', student, {
+       const response =  await axios.post(`${baseURL}/api/v1/auth/login`, student, {
             headers : {
                 'Content-Type': 'application/json'
            },
@@ -78,7 +79,7 @@ export const loginApi = async(student)=>{
 export const logOutApi = async()=>{
      try {
         store.dispatch(showLoader())
-        await axios.post('http://localhost:3000/api/v1/auth/logout',  {
+        await axios.post(`${baseURL}/api/v1/auth/logout`,  {
             headers : {
                 'Content-Type': 'application/json'
            },

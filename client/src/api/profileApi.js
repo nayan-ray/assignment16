@@ -3,13 +3,14 @@ import {store} from "../app/store"
 import { hideLoader, showLoader } from "../features/loader/loaderSlice"
 import { removeStudentLocal } from "../helper/auth"
 import { setUpdatedUser, setUser } from "../features/update/userUpdateSlice"
+import { baseURL } from "./baseUrl"
 
 
 export const profileApi = async(setStudent, navigate, text)=>{
     try {
         store.dispatch(showLoader())
 
-        const response = await axios.get(`http://localhost:3000/api/v1/student/info`, {
+        const response = await axios.get(`${baseURL}/api/v1/student/info`, {
              headers : {
                 'Content-Type': 'application/json'
                },
@@ -46,7 +47,7 @@ export const profileApi = async(setStudent, navigate, text)=>{
 export const updateApi = async(setStudent, student, navigate)=>{
     try {
         store.dispatch(showLoader())
-       const response =  await axios.put('http://localhost:3000/api/v1/student/update', student, {
+       const response =  await axios.put(`${baseURL}/api/v1/student/update`, student, {
             headers : {
                 'Content-Type': 'application/json'
            },

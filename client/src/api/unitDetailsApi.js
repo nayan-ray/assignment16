@@ -5,6 +5,7 @@ import { hideLoader, showLoader } from "../features/loader/loaderSlice"
 import { removeStudentLocal } from "../helper/auth"
 
 import { setUnitDetails, setUnitResults } from "../features/unitDetails/unitDetailSlice"
+import { baseURL } from "./baseUrl"
 
 
 export const unitDetailsApi = async(setStudent, navigate, unitId, unitName, setUnitIdToState)=>{
@@ -13,7 +14,7 @@ export const unitDetailsApi = async(setStudent, navigate, unitId, unitName, setU
         let unitDetailsId = unitId;
         if(!unitDetailsId){
              try {
-                   const response = await axios.get(`http://localhost:3000/api/v1/unit/id-by-name/${unitName}`, {
+                   const response = await axios.get(`${baseURL}/api/v1/unit/id-by-name/${unitName}`, {
                 headers : {
                    'Content-Type': 'application/json'
                },
@@ -33,7 +34,7 @@ export const unitDetailsApi = async(setStudent, navigate, unitId, unitName, setU
         }
 
         setUnitIdToState(unitDetailsId);
-        const response = await axios.get(`http://localhost:3000/api/v1/unit/details/${unitDetailsId}`, {
+        const response = await axios.get(`${baseURL}/api/v1/unit/details/${unitDetailsId}`, {
              headers : {
                 'Content-Type': 'application/json'
                },
@@ -46,7 +47,7 @@ export const unitDetailsApi = async(setStudent, navigate, unitId, unitName, setU
             
         }
          
-        const result = await axios.get(`http://localhost:3000/api/v1/exam-quiz/result-by-unit/${unitDetailsId}`, {
+        const result = await axios.get(`${baseURL}/api/v1/exam-quiz/result-by-unit/${unitDetailsId}`, {
              headers : {
                 'Content-Type': 'application/json'
                },

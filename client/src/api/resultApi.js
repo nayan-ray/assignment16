@@ -7,13 +7,14 @@ import { removeStudentLocal } from "../helper/auth"
 
 
 import { setResult } from "../features/result/resultSlice"
+import { baseURL } from "./baseUrl"
 
 
 export const resultApi = async(setStudent, navigate)=>{
     try {
         store.dispatch(showLoader())
         
-        const response = await axios.get(`http://localhost:3000/api/v1/exam-quiz/result`, {
+        const response = await axios.get(`${baseURL}/api/v1/exam-quiz/result`, {
              headers : {
                 'Content-Type': 'application/json'
                },

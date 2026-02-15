@@ -6,6 +6,7 @@ import { removeStudentLocal } from "../helper/auth"
 
 
 import { setNote } from "../features/note/noteSlice"
+import { baseURL } from "./baseUrl"
 
 
 export const noteApi = async(setStudent, navigate, unitId, unitName)=>{
@@ -14,7 +15,7 @@ export const noteApi = async(setStudent, navigate, unitId, unitName)=>{
         let unitDetailsId = unitId;
         if(!unitDetailsId){
              try {
-                   const response = await axios.get(`http://localhost:3000/api/v1/unit/id-by-name/${unitName}`, {
+                   const response = await axios.get(`${baseURL}/api/v1/unit/id-by-name/${unitName}`, {
                 headers : {
                    'Content-Type': 'application/json'
                },
@@ -33,7 +34,7 @@ export const noteApi = async(setStudent, navigate, unitId, unitName)=>{
              }
         }
 
-        const response = await axios.get(`http://localhost:3000/api/v1/note/notes-by-unit/${unitDetailsId}`, {
+        const response = await axios.get(`${baseURL}/api/v1/note/notes-by-unit/${unitDetailsId}`, {
              headers : {
                 'Content-Type': 'application/json'
                },
