@@ -26,7 +26,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 app.use(cors({
-  origin: "http://localhost:5173", // exact frontend origin
+  origin: "online-client-eight.vercel.app", // exact frontend origin
   credentials: true
 }));
 app.use(express.json());

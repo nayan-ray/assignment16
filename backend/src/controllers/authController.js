@@ -44,8 +44,8 @@ const handleLogin =  async(req, res, next)=>{
         res.cookie("access_token", accessToken, {
             httpOnly: true,
             maxAge: 1000 * 60 * 10, // 10 minutes
-             secure: false,
-            sameSite : "lax"
+            secure: true,
+            sameSite : "none"
         })
        
         return successResponse(res,{
