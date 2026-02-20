@@ -5,7 +5,10 @@ import cors from 'cors';
 import morgan from 'morgan';
 import path from 'path';
 import { fileURLToPath } from "url";
-
+import helmet from "helmet";
+import rateLimit from "express-rate-limit";
+import mongoSanitize from "express-mongo-sanitize";
+import xss from "xss-clean"
 import { errorResponse } from './src/helper/response.js';
 import studentRouter from './src/routes/studentRoute.js';
 import studentAuthRouter from './src/routes/authRoute.js';
@@ -33,7 +36,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(morgan('dev'));
-
+app.use(helmet())
+app.use(mongoSanitize());
+app.use(xss());
 //for serving static files
 
 //   requested_file_path = static_folder_path + (URL - URL_prefix)
