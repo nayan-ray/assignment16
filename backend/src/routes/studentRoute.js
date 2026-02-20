@@ -3,10 +3,12 @@ import { activeUserProcess, checkEmail, deleteUserById, getUserById, resetPasswo
 import { isLoggedIn } from '../middleware/authMiddleware.js';
 import upload from '../middleware/fileUpload.js';
 import Limiter from '../middleware/rateLimiter.js';
+import { registerValidator } from '../validators/userValidators.js';
+import { validate } from '../middleware/validate.js';
 const router = express.Router();
 
 
-router.post("/register", Limiter, userRegister );
+router.post("/register",Limiter , registerValidator, validate, userRegister );
 router.post("/activation-student", Limiter, activeUserProcess);
 router.get("/info", isLoggedIn, Limiter, getUserById);
 router.delete("/:id", isLoggedIn, deleteUserById);
