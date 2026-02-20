@@ -42,6 +42,7 @@ const isLoggedOut = async(req , res,  next) => {
     try {
         // taken token from cookies
         const accessToken = req.cookies.access_token;
+        if(!accessToken) return next();
         // check if token is valid
         if (accessToken) {
             try {
@@ -50,7 +51,7 @@ const isLoggedOut = async(req , res,  next) => {
                     throw createError(401, 'Unauthorized, you are already logged in');
                 }
             } catch (error) {
-                throw error;
+                return next();
             }
         }
     // finally next middleware
