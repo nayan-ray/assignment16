@@ -12,10 +12,8 @@ const isLoggedIn = async(req, res,  next) => {
         const accessToken = req.cookies.access_token;
      
          
-        //check if token is valid
-        if (!accessToken) {
-            throw createError(401,  'Unauthorized, you are not logged in');
-        }
+        
+       
         //verify token
 
         const  decoded = jwt.verify(accessToken, login_secret_key);
