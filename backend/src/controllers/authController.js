@@ -45,7 +45,8 @@ const handleLogin =  async(req, res, next)=>{
             httpOnly: true,
             maxAge: 1000 * 60 * 10, // 10 minutes
             secure: true,
-            sameSite : "none"
+            sameSite : "none",
+            path : "/"
         })
        
         return successResponse(res,{
@@ -64,7 +65,12 @@ const handleLogout =  async(req, res, next)=>{
     try {
         
         //clear  cookie
-        res.clearCookie("access_token");
+        res.clearCookie("access_token", {
+            httpOnly: true,
+            secure: true,
+            sameSite : "none",
+            path : "/"
+        });
 
         return successResponse(res,{
             statusCode  : 200,
