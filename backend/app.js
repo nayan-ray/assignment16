@@ -6,7 +6,7 @@ import morgan from 'morgan';
 import path from 'path';
 import { fileURLToPath } from "url";
 import helmet from "helmet";
-import rateLimit from "express-rate-limit";
+
 import mongoSanitize from "express-mongo-sanitize";
 import xss from "xss-clean"
 import { errorResponse } from './src/helper/response.js';

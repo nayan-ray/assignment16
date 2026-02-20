@@ -34,5 +34,6 @@ export const registerValidator = [
 
   body("address")
     .notEmpty().withMessage("Address is required")
-    .isInt({ min: 18, max: 100 }).withMessage("Address must be between 18 and 100")
+    // .isInt({min:5, max: 200 }).withMessage("Address must be between 5 and 200")
+    .isLength({ min: 3, max: 200 }).withMessage("Name must be 3 to 200 characters")
 ];
