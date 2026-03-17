@@ -5,7 +5,7 @@ export const registerValidator = [
   body("name")
     .trim()
     .notEmpty().withMessage("Name is required")
-    .isLength({ min: 3, max: 50 }).withMessage("Name must be 3 to 50 characters")
+    .isLength({ min: 1, max: 50 }).withMessage("Name must be 1 to 50 characters")
     .matches(/^[a-zA-Z\s]+$/).withMessage("Name must contain only letters"),
 
   body("email")
@@ -16,15 +16,16 @@ export const registerValidator = [
 
   body("password")
     .trim()
-    .notEmpty().withMessage("Password is required")
-    .isStrongPassword({
-      minLength: 5,
-      minLowercase: 1,
-      minUppercase: 1,
-      minNumbers: 1,
-      minSymbols: 1
-    })
-    .withMessage("Password must be strong (uppercase, lowercase, number, symbol)"),
+    .notEmpty().withMessage("Password is required"),
+    // .isStrongPassword({
+    //   minLength: 5,
+    //   minLowercase: 1,
+    //   minUppercase: 1,
+    //   minNumbers: 1,
+    //   minSymbols: 1
+    // })
+    // .withMessage("Password must be strong (uppercase, lowercase, number, symbol)")
+    
 
   body("phone")
     .trim()
@@ -35,5 +36,5 @@ export const registerValidator = [
   body("address")
     .notEmpty().withMessage("Address is required")
     // .isInt({min:5, max: 200 }).withMessage("Address must be between 5 and 200")
-    .isLength({ min: 3, max: 200 }).withMessage("Name must be 3 to 200 characters")
+    .isLength({ min: 1, max: 200 }).withMessage("Address must be 1 to 200 characters")
 ];

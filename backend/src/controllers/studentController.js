@@ -8,6 +8,7 @@ import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
 import { findUserById } from "../helper/commonService.js";
 import { deleteImageByPath } from "../helper/deleteImagePath.js";
+import sendEmail from "../helper/resendEmail.js";
 
 const userRegister= async(req, res,next) => {
     try {
@@ -50,9 +51,8 @@ const userRegister= async(req, res,next) => {
                 //prepare email
 
                  const emailData = {
-                    email: email,
+                    to: email,
                     subject : 'Account Activation Email',
-                    text: '',
                     html : `
                          <h2> Hello ${name} </h2>
                        <p>welcome to our online nctb books learning platform</p>
@@ -69,7 +69,8 @@ const userRegister= async(req, res,next) => {
          //sendEmail
       
          try {
-            await emailWithNodeMailer(emailData);
+            // await emailWithNodeMailer(emailData);
+            await sendEmail(emailData)
          } catch (error) {
              throw error;
          }

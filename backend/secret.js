@@ -6,7 +6,8 @@ import 'dotenv/config'
  const smtpPassword = process.env.SMTP_PASSWORD;
  const secretKey = process.env.SECRET_KEY;
  const login_secret_key = process.env.LOGIN_SECRET_KEY; 
+ const resend_api_key = process.env.RESEND_API_KEY;
 
-export { Mongo_connect_url , smtpUser , smtpPassword, secretKey, login_secret_key};
+export { Mongo_connect_url , smtpUser , smtpPassword, secretKey, login_secret_key, resend_api_key};
 
 
