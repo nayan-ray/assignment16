@@ -3,7 +3,7 @@ import { emailWithNodeMailer } from "../helper/email.js";
 import { successResponse } from "../helper/response.js";
 import createHttpError from "http-errors";
 import Student from "../models/student.js";
-import { secretKey } from "../../secret.js";
+import { frontend_url, secretKey } from "../../secret.js";
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
 import { findUserById } from "../helper/commonService.js";
@@ -58,7 +58,7 @@ const userRegister= async(req, res,next) => {
                        <p>welcome to our online nctb books learning platform</p>
                      
                       <p>Please click here to
-                         <a href='http://localhost:5173/active-account/${token}'>
+                         <a href='${frontend_url}/active-account/${token}'>
                           activate your account
                         </a>
                        </p>
