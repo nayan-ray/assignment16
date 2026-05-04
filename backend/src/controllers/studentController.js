@@ -10,6 +10,38 @@ import { findUserById } from "../helper/commonService.js";
 import { deleteImageByPath } from "../helper/deleteImagePath.js";
 import sendEmail from "../helper/resendEmail.js";
 
+//user register controller
+const userRegisterNormally = async(req, res,next) => {
+    try {
+        const  {name, email, password, phone, classId} = req.body;
+        const userExist = await Student.exists({email : email});
+       
+        if(userExist){
+            throw createHttpError(409,"User already exists");
+         }
+
+        let newUser = {
+            name, email, password, phone, classId
+
+        }
+       
+         if(req.body.address){
+            newUser.address = req.body.address
+         }
+
+            const user = await Student.create(newUser);
+            return successResponse(res,{
+            statusCode  : 200,
+            message  : 'student created successfully',
+            payload : user
+            
+        }) 
+
+    } catch (error) {
+        next(error)
+    }
+}
+
 const userRegister= async(req, res,next) => {
     try {
         //taken user info
@@ -416,4 +448,4 @@ const resetPassword = async (req, res, next)=>{
 }
 
 
-export {userRegister, activeUserProcess, getUserById, deleteUserById, updateUser, checkEmail, resetPassword}; ;
+export {userRegister, activeUserProcess, getUserById, deleteUserById, updateUser, checkEmail, resetPassword, userRegisterNormally}; ;

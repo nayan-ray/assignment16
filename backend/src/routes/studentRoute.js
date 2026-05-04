@@ -1,5 +1,5 @@
 import express from 'express';
-import { activeUserProcess, checkEmail, deleteUserById, getUserById, resetPassword, updateUser, userRegister } from '../controllers/studentController.js';
+import { activeUserProcess, checkEmail, deleteUserById, getUserById, resetPassword, updateUser, userRegister, userRegisterNormally } from '../controllers/studentController.js';
 import { isLoggedIn } from '../middleware/authMiddleware.js';
 import upload from '../middleware/fileUpload.js';
 import Limiter from '../middleware/rateLimiter.js';
@@ -15,5 +15,6 @@ router.delete("/:id", isLoggedIn, deleteUserById);
 router.put("/update",Limiter, isLoggedIn, upload.single("uploadFile"), updateUser);
 router.post("/email-verification", Limiter, checkEmail)
 router.post("/reset-password", Limiter, resetPassword)
+router.post("/register-normally", Limiter, userRegisterNormally)
 
 export default router;
