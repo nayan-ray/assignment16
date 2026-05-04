@@ -55,4 +55,17 @@ const deleteClass = async (req, res, next) => {
     }
 }
 
-export { createClass, updateClass, deleteClass };
+const getAllClasses = async (req, res, next) => {
+    try {
+        const classes = await Class.find();
+        return successResponse(res, {
+            statusCode: 200,
+            message: 'Classes retrieved successfully',
+            payload: classes
+        });
+    } catch (error) {
+        next(error);
+    }
+}
+
+export { createClass, updateClass, deleteClass, getAllClasses };
